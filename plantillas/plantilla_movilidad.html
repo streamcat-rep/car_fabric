@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coche, autobús autónomo y tranvía autónomo: planificación y optimización con Leontief y Kantorovich</title>
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] }, chtml: { scale: 0.97 } };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<style>
+:root{--bg:#fafaf9;--panel:#fff;--ink:#1c1917;--mut:#57534e;--line:#e7e5e4;--acc:#4338ca;--acc2:#0e7490;--warn:#b45309;--red:#be123c;--ok:#15803d;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif}
+nav{position:fixed;z-index:5;top:0;left:0;bottom:0;width:260px;overflow:auto;padding:24px 18px;border-right:1px solid var(--line);background:#f5f5f4;font-size:14px}
+nav b{display:block;margin-bottom:10px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+nav a{display:block;color:var(--ink);text-decoration:none;padding:4px 8px;border-radius:6px}nav a:hover{background:#e7e5e4}
+nav a.sub{padding-left:22px;color:var(--mut);font-size:13px}
+main{margin-left:260px;max-width:1300px;padding:40px 48px 120px}
+@media (max-width:1500px){nav{display:none}main{margin-left:0;padding:28px 32px;max-width:none}}
+h1{font-size:33px;line-height:1.2;margin:0 0 10px}
+h2{font-size:26px;margin:64px 0 12px;padding-top:12px;border-top:2px solid var(--ink)}
+h3{font-size:19px;margin:34px 0 8px}
+p,li{max-width:84ch}.lead{font-size:18px;color:var(--mut)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:26px 0}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.kpi .v{font-size:25px;font-weight:700;font-variant-numeric:tabular-nums}.kpi .l{font-size:13px;color:var(--mut)}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 20px;margin:16px 0;overflow-x:auto}
+.formula{background:#eef2ff;border:1px solid #c7d2fe;border-left:4px solid var(--acc);border-radius:8px;padding:10px 18px;margin:14px 0;overflow-x:auto}
+.formula.k{background:#ecfeff;border-color:#a5f3fc;border-left-color:var(--acc2)}
+.formula.t{background:#fff7ed;border-color:#fed7aa;border-left-color:var(--warn)}
+.formula .tt{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+.nota{font-size:14px;color:var(--mut);border-left:3px solid var(--line);padding-left:12px}
+.res{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:12px 16px;margin:14px 0}
+.alerta{background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:12px 16px;margin:14px 0}
+table{border-collapse:collapse;width:100%;font-size:12.5px;font-variant-numeric:tabular-nums}
+th,td{padding:5px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--mut);font-weight:600}
+th mjx-container{font-size:135%!important}
+td:first-child{min-width:150px}
+.box{scrollbar-width:auto}
+.two{grid-template-columns:minmax(0,1fr) minmax(0,1.35fr)}
+@media (max-width:1100px){.two{grid-template-columns:1fr}}
+td.n{text-align:right;white-space:nowrap}td.w{width:16%;min-width:90px}.mut{color:var(--mut)}
+tr.hl td{background:#eef2ff}
+.bar{height:12px;background:#f5f5f4;border-radius:3px;overflow:hidden;margin-top:4px}.bar span{display:block;height:100%;border-radius:3px}
+.stack{display:flex;height:12px;background:#f5f5f4;border-radius:3px;overflow:hidden;margin-top:5px;min-width:90px}.stack span{display:block;height:100%}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
+.ok{color:var(--ok);font-weight:600}.no{color:var(--red);font-weight:600}.warn{color:var(--warn);font-weight:600}
+.leg{font-size:12.5px;color:var(--mut);margin-top:6px}.leg span{display:inline-block;width:10px;height:10px;border-radius:2px;margin:0 4px 0 12px;vertical-align:middle}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}@media (max-width:900px){.two{grid-template-columns:1fr}}
+code{font-family:var(--mono);font-size:13px;background:#f5f5f4;padding:1px 5px;border-radius:4px}
+svg.chart{width:100%;height:auto}svg .grid{stroke:#e7e5e4;stroke-width:1}svg .tk{font-size:11px;fill:#78716c}
+svg .ax{font-size:12px;fill:#57534e}svg .front{fill:none;stroke:#4338ca;stroke-width:2}svg .pf{fill:#4338ca}
+svg .dom{fill:#be123c}svg .cp{fill:#15803d;stroke:#fff;stroke-width:2}svg .lb{font-size:12px;fill:#1c1917}
+</style>
+</head>
+<body>
+<nav>
+<b>Índice</b>
+<a href="#resumen">Resumen</a>
+<a href="#cambios">0. Qué se optimiza ahora</a>
+<a href="#demanda">1. La demanda de la ciudad</a>
+<a href="#eficiencia">2. Eficiencia de cada modo</a>
+<a class="sub" href="#ef-formulas">2.1 Rendimientos (tus fórmulas)</a>
+<a class="sub" href="#ef-energia">2.2 Energía por pasajero-km</a>
+<a class="sub" href="#ef-horas">2.3 Horas por pasajero-km</a>
+<a class="sub" href="#ef-co2">2.4 CO₂ por pasajero-km</a>
+<a href="#horas">3. Horas de trabajo por producto</a>
+<a href="#tecnicas">4. Comparación de técnicas</a>
+<a href="#fabrica">5. Fábrica: máximo de coches</a>
+<a class="sub" href="#fab-max">5.1 Máxima producción</a>
+<a class="sub" href="#fab-co2">5.2 Con techo de CO₂</a>
+<a class="sub" href="#fab-vida">5.3 Ciclo de vida: combustión vs eléctrico</a>
+<a href="#ciudad">6. Ciudad: Kantorovich multiobjetivo</a>
+<a class="sub" href="#c-modelo">6.1 Formulación</a>
+<a class="sub" href="#c-esc">6.2 Escenarios y óptimos</a>
+<a class="sub" href="#c-pareto">6.3 Frontera de Pareto</a>
+<a class="sub" href="#c-max">6.4 Máxima movilidad</a>
+<a class="sub" href="#c-dual">6.5 Valoraciones duales</a>
+<a href="#plan">7. Plan de flota e infraestructura</a>
+<a class="sub" href="#plan-flota">7.1 Parque, reposición y ensamblaje</a>
+<a class="sub" href="#plan-bloques">7.2 Horas por bloque</a>
+<a href="#supuestos">8. Supuestos y límites</a>
+</nav>
+<main>
+<h1>Coche, autobús autónomo y tranvía autónomo: qué producir para mover una ciudad</h1>
+<p class="lead">Este documento planifica y optimiza la producción de los vehículos y la infraestructura que necesita una ciudad de <b>{{HAB}} habitantes en {{SUP}} km²</b>. Compara el coche de combustión, el coche eléctrico, el autobús eléctrico autónomo y el tranvía autónomo con las líneas, paradas, marquesinas y cargadores que necesita cada uno. Usa tres herramientas: el balance de <b>Leontief</b> para calcular horas y CO₂ incorporados, la programación lineal de <b>Kantorovich</b> para elegir técnicas y modos y obtener precios sombra, y la optimización <b>multiobjetivo</b>: máxima producción, mínimo CO₂, mínimo trabajo, máximo rendimiento y frontera de Pareto.</p>
+
+<section id="resumen">
+<div class="kpis">
+<div class="kpi"><div class="v">−{{RED_H}}</div><div class="l">horas de trabajo/año: óptimo de compromiso frente al modelo coche-céntrico ({{H_COMP}} M frente a {{H_REF}} M h)</div></div>
+<div class="kpi"><div class="v">−{{RED_C}}</div><div class="l">CO₂/año ({{C_COMP}} t frente a {{C_REF}} t)</div></div>
+<div class="kpi"><div class="v">−{{RED_E}}</div><div class="l">energía final/año ({{E_COMP}} frente a {{E_REF}} MWh)</div></div>
+<div class="kpi"><div class="v">×{{MULT_MOV}}</div><div class="l">movilidad que se puede producir con las mismas horas y el mismo CO₂ que el modelo coche-céntrico</div></div>
+<div class="kpi"><div class="v">{{RATIO_BUS}}×</div><div class="l">rendimiento útil del autobús frente al coche (η<sub>e</sub>·η<sub>m</sub>: {{ETA_BUS_U}} frente a {{ETA_CAR_U}})</div></div>
+<div class="kpi"><div class="v">{{GAN_OPT}}</div><div class="l">más coches con las mismas horas al elegir técnicas ({{N_OPT}} frente a {{N_BASE}}) y −{{CO2_RED_FAB}} de CO₂ de fabricación</div></div>
+</div>
+<div class="res"><b>Plan óptimo de compromiso.</b> Reparto de los viajes: autobús autónomo {{SH_BUS}} %, tranvía autónomo {{SH_TRAM}} % y coche eléctrico {{SH_CBEV}} % (el mínimo para viajes sin alternativa). Hay que producir y mantener un parque de <b>{{FLOTA_BUS}} autobuses</b>, <b>{{FLOTA_TRAM}} tranvías</b>, <b>{{VIA_KM}} km de línea</b> con {{PAR_N}} paradas, <b>{{MAR_N}} marquesinas</b>, {{CRG_N}} cargadores y {{FLOTA_CBEV}} coches eléctricos, en lugar de {{FLOTA_CICE_REF}} coches de combustión. Toda la electricidad pasa a ser renovable ({{ELE_REN}}). Construir este sistema desde cero cuesta {{HI_COMP}} M horas, frente a {{HI_REF}} M el coche-céntrico. Además libera {{HCOND_REF}} M horas al año que hoy la población pasa conduciendo (bajan a {{HCOND_COMP}} M).</div>
+</section>
+
+<h2 id="cambios">0. Qué se optimiza ahora (y qué faltaba antes)</h2>
+<p>El documento anterior calculaba <i>cuánto</i> hacía falta para 100.000 coches y elegía técnicas solo para minimizar horas. Este lo amplía con:</p>
+<ul>
+<li><b>Maximizar la producción de coches</b> con recursos dados (horas, chatarra, celdas, renovables): §5.</li>
+<li><b>Minimizar el CO₂</b>, tanto el de fabricación como el de ciclo de vida, y medir cuánto trabajo cuesta cada tonelada evitada: §4, §5.2, §6.3.</li>
+<li><b>Comparar las técnicas una a una</b>: cuáles dominan, cuáles quedan dominadas y cuáles intercambian horas por CO₂, con su coste de abatimiento: §4.</li>
+<li><b>Coche frente a autobús autónomo frente a tranvía autónomo</b> para la demanda real de la ciudad, con los rendimientos que pediste (energético, de ocupación y de masa): §2 y §6.</li>
+<li><b>Horas de trabajo totales y de ensamblaje final</b> de cada producto y de cada plan: §3 y §7.</li>
+</ul>
+
+<!-- ============================================================ -->
+<h2 id="demanda">1. La demanda de movilidad de la ciudad</h2>
+<p>Densidad media: {{DENS}} hab/km². Es un término municipal grande, con un núcleo compacto y barrios y pedanías dispersos. La demanda anual en <b>pasajeros-kilómetro (pkm)</b> es:</p>
+<div class="formula"><div class="tt">Demanda</div>
+\[ D = \text{Hab}\times \text{viajes/día}\times \text{cuota motorizada}\times \text{distancia media}\times 365 = {{HAB}}\times {{VIAJES}}\times 0{,}{{CUOTA_MOTOR}}\times {{DIST}}\ \text{km}\times 365 \approx {{D_MILL}}\ \text{mil millones de pkm/año} \]
+<p>Son unos {{PKM_HAB}} pkm por habitante y año. El resto de los viajes (38 %) se hacen a pie o en bici y no consumen vehículos.</p></div>
+<p><b>No todo el mundo conduce.</b> Menores, muchas personas mayores, quienes no tienen carné o no tienen coche, y personas con discapacidad. El modelo lo recoge con restricciones sobre el reparto modal (\(q_m\) = pkm del modo \(m\)):</p>
+<div class="formula"><div class="tt">Restricciones de reparto modal</div>
+\[ \begin{aligned}
+& q_{\text{coche}} \le {{CUOTA_COND}}\,\%\cdot \textstyle\sum_m q_m && \text{(solo quien tiene carné y coche puede conducir; con ocupación 1 no hay acompañantes)}\\
+& q_{\text{coche}} \ge {{COCHE_MIN}}\,\%\cdot \textstyle\sum_m q_m && \text{(viajes sin alternativa colectiva: pedanías, noche, puerta a puerta)}\\
+& q_{\text{tranvía}} \le {{TRAM_MAX}}\,\%\cdot \textstyle\sum_m q_m,\quad q_{\text{tranvía}} \le \kappa\cdot {{VIA_MAX}}\ \text{km} && \text{(solo los corredores densos admiten tranvía; } \kappa = {{KAPPA}}\text{ M pkm/km·año)}\\
+& q_{\text{bus}} \ge {{BUS_MIN}}\,\%\cdot \textstyle\sum_m q_m && \text{(cobertura de los {{SUP}} km²)}
+\end{aligned} \]</div>
+
+<!-- ============================================================ -->
+<h2 id="eficiencia">2. Eficiencia de cada modo</h2>
+<h3 id="ef-formulas">2.1 Los tres rendimientos que pediste</h3>
+<div class="formula"><div class="tt">Definiciones</div>
+\[ \eta_e = \frac{\text{energía mecánica en rueda}}{\text{energía final (combustible o electricidad)}},\qquad
+\eta_o = \frac{n}{\text{plazas}},\qquad
+\eta_m = \frac{100\,n}{M + 100\,n} \]
+<p>\(n\) = personas a bordo (de media), \(M\) = masa del vehículo vacío en kg, y 100 kg por persona con su equipaje. Para el coche con una persona: \(\eta_m = 100/(1350+100) = {{ETA_CAR_M}}\).</p>
+\[ \eta_{\text{útil}} = \eta_e\cdot\eta_m \quad\text{(parte de la energía que acaba moviendo personas)},\qquad \eta_{e\cdot o\cdot m} = \eta_e\cdot\eta_o\cdot\eta_m \]</div>
+<div class="box"><table><thead><tr><th>Modo</th><th>Masa vacío M</th><th>Ocupación n / plazas</th><th>\(\eta_e\)</th><th>\(\eta_o\)</th><th>\(\eta_m\)</th><th>\(\eta_{\text{útil}}=\eta_e\eta_m\)</th><th>\(\eta_e\eta_o\eta_m\)</th><th></th></tr></thead><tbody>{{TABLA_ETA}}</tbody></table></div>
+<p><b>Lectura.</b> En el coche de combustión, el 70 % del combustible se pierde como calor y, de lo que llega a la rueda, solo un {{ETA_CAR_M}} mueve a la persona; el resto mueve el propio coche. En total, apenas el <b>{{ETA_CAR_U}}</b> de la energía del combustible mueve personas. El autobús autónomo llega al {{ETA_BUS_U}} y el tranvía al {{ETA_TRAM_U}}, unas <b>{{RATIO_BUS}} veces más</b>.</p>
+<p class="nota">Sobre el producto de los tres rendimientos, \(\eta_e\eta_o\eta_m\) (coche: {{ETA_CAR_T}}): la ocupación ya está dentro de \(\eta_m\), porque \(n\) aparece en esa fórmula, así que multiplicar además por \(\eta_o\) penaliza dos veces las plazas vacías. Lo muestro porque es la convención que pediste y sirve de índice comparativo; para el rendimiento físico real uso \(\eta_{\text{útil}}\). Otro límite de \(\eta_m\): no recoge que el acero sobre carril tiene una resistencia a la rodadura unas 4–5 veces menor que el neumático. Por eso el indicador definitivo es la energía por pkm (2.2).</p>
+
+<h3 id="ef-energia">2.2 Energía final por pasajero-km</h3>
+<div class="formula">\[ e_{\text{pkm}} = \frac{e_{\text{vkm}}}{n}\qquad\text{(kWh por vehículo-km entre personas a bordo)} \]</div>
+<div class="box"><table><thead><tr><th>Modo</th><th>kWh / vkm</th><th>n</th><th>Wh / pkm (final)</th><th>Wh / pkm útiles en rueda</th><th></th><th>Coche comb. / modo</th></tr></thead><tbody>{{TABLA_KWH}}</tbody></table></div>
+<p>El coche de combustión consume 6,5 L/100 km, unos 0,58 kWh de combustible por km. El eléctrico gasta 0,17 kWh/km. El autobús de 12 m gasta 1,3 kWh/km y el tranvía de 32 m, 3,6 kWh/km, ya descontada la frenada regenerativa e incluida la climatización.</p>
+
+<h3 id="ef-horas">2.3 Horas de trabajo por cada mil pkm (todo el ciclo)</h3>
+<p>Cada modo es una <b>actividad de Kantorovich</b> que produce 1.000 pkm y consume una fracción de vehículo, de infraestructura, de energía y de trabajo de operación y mantenimiento:</p>
+<div class="formula k"><div class="tt">Coste en horas de un modo</div>
+\[ h_m = \underbrace{v_{\text{veh}}\cdot\frac{1000/n}{\text{km/año}\cdot\text{vida}}}_{\text{vehículo amortizado}} + \underbrace{\sum_{g\in\text{infra}} v_g\,a_{g,m}}_{\text{vía, paradas, marquesinas, cargadores}} + \underbrace{v_{\text{energía}}\,a_{E,m}}_{\text{electricidad o gasolina}} + \underbrace{h^{\text{oper}}_m}_{\text{mantenimiento y supervisión remota}} \]
+<p>\(v_g\) son las horas totales incorporadas que da Leontief (§3). En los vehículos autónomos, la operación es supervisión remota (1 supervisor por cada 10 vehículos en servicio) más mantenimiento, sin conductor.</p></div>
+<div class="box"><table><thead><tr><th>Modo</th><th>Vehículo</th><th>Infraestructura</th><th>Energía</th><th>Operación</th><th>Total h/1.000 pkm</th><th></th><th>Horas de conducción del usuario (no contadas)</th></tr></thead><tbody>{{TABLA_HPKM}}</tbody></table>
+<div class="leg"><span style="background:#4338ca"></span>vehículo<span style="background:#0e7490"></span>infraestructura<span style="background:#b45309"></span>energía<span style="background:#a8a29e"></span>operación</div></div>
+<p>Fabricar un coche cuesta {{V_CICE}} h, y a lo largo de su vida da unos {{PKM_VIDA_CICE}} pkm, es decir {{H_PKM_CICE}} h de fabricación por cada mil pkm. Un autobús cuesta {{V_BUS}} h pero da {{PKM_VIDA_BUS}} pkm ({{H_PKM_BUS}} h/mil pkm). Un tranvía cuesta {{V_TRAM}} h y da {{PKM_VIDA_TRAM}} pkm ({{H_PKM_TRAM}} h/mil pkm). <b>Un vehículo caro pero muy usado sale mucho más barato por pasajero.</b></p>
+
+<h3 id="ef-co2">2.4 CO₂ por pasajero-km (fabricación + infraestructura + energía)</h3>
+<div class="box"><table><thead><tr><th>Modo</th><th>Vehículo (g/pkm)</th><th>Infraestructura</th><th>Energía (red térmica)</th><th>Total g/pkm</th><th>Total con electricidad renovable</th><th></th></tr></thead><tbody>{{TABLA_CPKM}}</tbody></table>
+<div class="leg"><span style="background:#4338ca"></span>vehículo<span style="background:#0e7490"></span>infraestructura<span style="background:#be123c"></span>energía</div></div>
+<p>Con electricidad renovable, el CO₂ del autobús y del tranvía es casi todo de fabricación e infraestructura: el hormigón y el acero de la vía en el tranvía, la batería en el autobús. Por eso, cuando se minimiza solo el CO₂, el autobús desplaza al tranvía (§6.3).</p>
+
+<!-- ============================================================ -->
+<h2 id="horas">3. Horas de trabajo totales y de ensamblaje final de cada producto</h2>
+<p>Con el balance de Leontief y la técnica base de cada sector se separan las horas del <b>ensamblaje final</b> (\(l_j\): trabajo directo de la última etapa) de las <b>horas totales incorporadas</b> (\(v_j\): todo el trabajo de la cadena, desde la mina).</p>
+<div class="formula"><div class="tt">Horas incorporadas</div>
+\[ \mathbf{v}^{\top} = \mathbf{l}^{\top}(I-A)^{-1}, \qquad v_j = \underbrace{l_j}_{\text{ensamblaje final}} + \underbrace{\textstyle\sum_i v_i\,a_{ij}}_{\text{trabajo en componentes, materiales, energía y minería}},\qquad \boldsymbol{\varepsilon}^{\top} = \mathbf{d}^{\top}(I-A)^{-1} \]</div>
+<div class="box"><table><thead><tr><th>Producto</th><th>Ud.</th><th>Ensamblaje final \(l_j\) (h)</th><th>Resto de la cadena (h)</th><th>Total \(v_j\) (h)</th><th>% ensamblaje</th><th>Total con técnicas limpias (h)</th><th>CO₂ \(\varepsilon_j\) base (t)</th><th>CO₂ técnicas limpias (t)</th></tr></thead><tbody>{{TABLA_HORAS}}</tbody></table></div>
+<p class="nota">«Técnicas limpias»: acero DRI-H₂, aluminio reciclado, electricidad renovable y hormigón LC3. Por plaza ofrecida, un coche cuesta {{PLAZAS_CICE}} h, un autobús {{PLAZAS_BUS}} h y un tranvía {{PLAZAS_TRAM}} h. Por plaza, el transporte colectivo es <i>más caro de fabricar</i>. Pero cada plaza se usa muchísimo más, y por pasajero-km sale mucho más barato (2.3). El coche eléctrico cuesta {{V_CBEV}} h frente a {{V_CICE}} h del de combustión, por la batería de 60 kWh.</p>
+
+<!-- ============================================================ -->
+<h2 id="tecnicas">4. Comparación de técnicas: cuál es más eficiente</h2>
+<p>Para cada bien con varias técnicas se compara su coste en horas y en CO₂, valorando sus insumos con los \(v\) y \(\varepsilon\) de Leontief. El criterio para decidir es el <b>coste de abatimiento</b>: cuántas horas de trabajo cuesta cada tonelada de CO₂ evitada.</p>
+<div class="formula k"><div class="tt">Coste de abatimiento de la técnica k frente a la base b</div>
+\[ v_k = h_k + \sum_i v_i\,a_{ik},\qquad \varepsilon_k = c_k + \sum_i \varepsilon_i\,a_{ik},\qquad
+\alpha_k = \frac{v_k - v_b}{\varepsilon_b - \varepsilon_k}\ \ \left[\frac{\text{h}}{\text{t CO}_2}\right] \]
+<p>Si \(v_k<v_b\) y \(\varepsilon_k<\varepsilon_b\), la técnica es <b>dominante</b>: \(\alpha<0\), ahorra las dos cosas y solo la frena algún recurso escaso. Si es peor en las dos, está <b>dominada</b> y nunca debe usarse. En el resto de casos hay un <b>intercambio</b> y las técnicas se ordenan por \(\alpha\), de menor a mayor: es la curva de coste marginal de reducir emisiones.</p></div>
+<div class="box"><table><thead><tr><th>Bien</th><th>Técnica</th><th>\(v_k\) h/ud</th><th>\(\varepsilon_k\) t CO₂/ud</th><th>Δ horas</th><th>Δ CO₂</th><th>\(\alpha_k\) h/t CO₂</th><th>Veredicto</th><th>Recurso que la limita</th></tr></thead><tbody>{{TABLA_TEC}}</tbody></table></div>
+<p><b>Orden de mérito para reducir CO₂:</b> (1) reciclar, con acero EAF y aluminio secundario, que ahorra horas y CO₂ hasta agotar la chatarra; (2) electricidad renovable a 0,43 h/t; (3) hormigón LC3 a 0,61 h/t; (4) acero DRI-H₂ a 0,98 h/t. La carrocería multimaterial está <b>dominada</b> en fabricación.</p>
+<h3>Los modos de transporte como técnicas de movilidad</h3>
+<div class="box"><table><thead><tr><th>Modo (técnica para producir 1.000 pkm)</th><th>h/1.000 pkm</th><th>g CO₂/pkm</th><th>Wh/pkm</th><th>Δ horas frente al coche</th><th>Δ g CO₂/pkm</th><th>Abatimiento</th><th>Veredicto</th></tr></thead><tbody>{{TABLA_TEC_MODOS}}</tbody></table></div>
+<p>Frente al coche de combustión, los tres modos alternativos son <b>dominantes</b>: producen la misma movilidad con menos trabajo <i>y</i> menos CO₂. Entre autobús y tranvía casi hay empate. El tranvía gasta algo menos de energía y trabajo por pkm, pero su infraestructura emite más; cuál conviene depende de qué objetivo se priorice (§6).</p>
+
+<!-- ============================================================ -->
+<h2 id="fabrica">5. Fábrica: el máximo de coches que se pueden producir</h2>
+<h3 id="fab-max">5.1 Maximizar la producción con recursos dados</h3>
+<p>Planteamiento de Kantorovich: con las horas de toda la cadena fijadas en \(\bar H = {{H_FAB}}\) h (las del plan de 100.000 coches), más la chatarra, las renovables y las celdas de batería ({{CELDAS_FAB}} GWh), ¿cuántos coches se pueden sacar?</p>
+<div class="formula k"><div class="tt">LP-F: máxima producción</div>
+\[ \begin{aligned}
+\max_{\mathbf{z}\ge 0}\quad & N = z_{\text{CICE}} + z_{\text{CBEV}}\\
+\text{s.a.}\quad & B\,\mathbf{z} \ge \mathbf{0} && \text{(ningún bien intermedio en déficit)}\\
+& \mathbf{h}^{\top}\mathbf{z} \le \bar H,\quad R\,\mathbf{z} \le \mathbf{r} && \text{(horas, chatarra, renovables, celdas)}\\
+& \mathbf{c}^{\top}\mathbf{z} \le \bar C && \text{(opcional: techo de CO₂ de fabricación o de ciclo de vida)}
+\end{aligned} \]</div>
+<div class="box"><table><thead><tr><th>Plan</th><th>Coches N máx.</th><th>Combustión</th><th>Eléctricos</th><th>CO₂ fabricación (t)</th><th>t CO₂/coche fab.</th><th>t CO₂/coche ciclo de vida</th><th>Horas por coche marginal (1/dual)</th></tr></thead><tbody>{{TABLA_FAB}}</tbody></table></div>
+<p>Elegir bien las técnicas (EAF con chatarra, aluminio reciclado) da <b>{{GAN_OPT}} más coches</b> con las mismas horas y además <b>reduce un {{CO2_RED_FAB}} el CO₂</b>. Si solo cuenta el número de coches, el óptimo es fabricar solo de combustión ({{N_OPT}}): con las mismas horas, de eléctricos salen {{N_BEV}}.</p>
+
+<h3 id="fab-co2">5.2 Máximo de coches con techo de CO₂ de fabricación</h3>
+<div class="box"><table><thead><tr><th>Techo (% del CO₂ base)</th><th>t CO₂</th><th>N máx.</th><th>Frente a Leontief</th><th>Coches perdidos por cada kt de CO₂ que se recorta</th><th>Técnicas activas</th></tr></thead><tbody>{{TABLA_FAB_SENS}}</tbody></table></div>
+<div class="res">Se puede <b>recortar un 70 % el CO₂ de fabricación y seguir produciendo {{N30}} coches</b>, más que con la técnica base. El LP va metiendo técnicas por orden de mérito: renovables, luego DRI-H₂. Solo por debajo del 30 % se agotan las técnicas limpias y la producción cae de verdad.</div>
+
+<h3 id="fab-vida">5.3 Ciclo de vida: combustión frente a eléctrico</h3>
+<div class="formula k">\[ \text{CO}_2^{\text{vida}} = \varepsilon_{\text{fab}} + \text{CO}_2^{\text{uso}},\qquad \text{CO}_2^{\text{uso, comb.}} = 180.000\ \text{km}\times 6{,}5\ \text{L}/100\times 0{,}745\ \text{kg/L}\times 3{,}09 = {{USO_CICE}}\ \text{t},\quad \text{CO}_2^{\text{uso, eléctr.}} = 180.000\times 0{,}17\ \text{kWh}\times 0{,}2\ \text{t/MWh} = {{USO_CBEV}}\ \text{t} \]
+<p>Ciclo de vida completo: combustión ≈ {{VIDA_CICE}} t/coche; eléctrico ≈ {{VIDA_CBEV}} t/coche. El eléctrico emite más al fabricarse ({{E_CBEV}} frente a {{E_CICE}} t) y mucho menos al usarse.</p></div>
+<div class="box"><table><thead><tr><th>Techo de CO₂ de ciclo de vida (% del base)</th><th>Techo</th><th>N máx.</th><th>Combustión</th><th>Eléctricos</th><th>Mezcla</th></tr></thead><tbody>{{TABLA_FAB_VIDA}}</tbody></table>
+<div class="leg"><span style="background:#a16207"></span>combustión<span style="background:#b45309"></span>eléctrico</div></div>
+<p>Este es el dilema de «maximizar coches» frente a «minimizar CO₂»: no se pueden tener los dos a la vez. Cuando el techo cuenta todo el ciclo de vida, el LP pasa a fabricar eléctricos y produce menos coches. Recortar el CO₂ de vida un 75 % cuesta unos 23.000 coches al año. Ese recorte en coches es lo que lleva al análisis de la ciudad: <b>la manera más barata de reducir CO₂ no es cambiar de coche, sino de modo</b>.</p>
+
+<!-- ============================================================ -->
+<h2 id="ciudad">6. Ciudad: optimización multiobjetivo de Kantorovich</h2>
+<h3 id="c-modelo">6.1 Formulación</h3>
+<p>Se integra todo en un único análisis de actividades: 36 bienes y 45 actividades, entre técnicas de fabricación, de energía, de infraestructura y los cuatro modos. Las cantidades son <b>flujos anuales en régimen permanente</b>: cada año se repone la parte del parque que llega al final de su vida.</p>
+<div class="formula k"><div class="tt">LP-M</div>
+\[ \begin{aligned}
+\min_{\mathbf{z}\ge 0}\quad & f(\mathbf{z}) \in \big\{\ \mathbf{h}^{\top}\mathbf{z}\ \ (\text{horas}),\quad \mathbf{c}^{\top}\mathbf{z}\ \ (\text{CO}_2),\quad \mathbf{e}^{\top}\mathbf{z}\ \ (\text{energía final}),\quad \textstyle\sum_i \frac{f_i(\mathbf{z})-f_i^{I}}{f_i^{N}-f_i^{I}}\ \ (\text{compromiso})\ \big\}\\
+\text{s.a.}\quad & B\,\mathbf{z} \ge \mathbf{y},\qquad y_{\text{PKM}} = D,\ \ y_{\text{resto}}=0 && \text{(Leontief generalizado: la movilidad es la demanda final)}\\
+& R\,\mathbf{z} \le \mathbf{r} && \text{(chatarra, renovables, celdas de batería)}\\
+& \text{restricciones de reparto modal de §1} && \text{(carné, coche mínimo, corredores de tranvía, cobertura de autobús)}
+\end{aligned} \]
+<p>Cada modo \(m\) consume por cada 1.000 pkm: vehículos \(\frac{1000/n_m}{\text{km/año}\cdot\text{vida}}\); electricidad o gasolina; y, según el modo, vía \(\frac{1}{\kappa\cdot 40}\) km, paradas \(\frac{1{,}8}{\kappa\cdot 40}\), marquesinas \(\frac{1}{{{KPKM_MAR}}\cdot 20}\) y cargadores \(\frac{0{,}5}{12}\) por autobús del parque. \(f_i^{I}\) es el ideal de cada objetivo (su mínimo por separado) y \(f_i^{N}\) su nadir, que aquí es el escenario coche-céntrico.</p></div>
+<div class="box"><b>Tabla de pagos (payoff).</b> Cada fila optimiza un objetivo. Las tres últimas columnas dan la distancia normalizada al ideal: 0 = ideal, 1 = nadir.
+<table><thead><tr><th>Optimiza</th><th>Horas/año</th><th>t CO₂/año</th><th>MWh energía final</th><th>dist. horas</th><th>dist. CO₂</th><th>dist. energía</th></tr></thead><tbody>{{TABLA_PAYOFF}}</tbody></table></div>
+
+<h3 id="c-esc">6.2 Escenarios y óptimos</h3>
+<div class="box"><table><thead><tr><th>Escenario (reparto modal)</th><th>% coche comb.</th><th>% coche eléc.</th><th>% bus</th><th>% tranvía</th><th>M horas</th><th>frente al ref.</th><th>t CO₂</th><th>frente al ref.</th><th>MWh energía</th><th>frente al ref.</th></tr></thead><tbody>{{TABLA_ESC}}</tbody></table>
+<div class="leg"><span style="background:#a16207"></span>coche combustión<span style="background:#b45309"></span>coche eléctrico<span style="background:#0e7490"></span>autobús autónomo<span style="background:#4338ca"></span>tranvía autónomo</div></div>
+<ul>
+<li><b>Mínimo trabajo y mínima energía coinciden</b>: tranvía hasta el límite de sus corredores ({{VIA_MAX}} km), autobús para el resto y coche eléctrico solo en la cuota mínima. El coche de combustión desaparece.</li>
+<li><b>Mínimo CO₂</b>: todo autobús, porque la vía de tranvía lleva mucho hormigón y acero. Gasta algo más de trabajo.</li>
+<li><b>Compromiso</b>: mantiene el tranvía y casi alcanza el ideal en los tres objetivos a la vez. Es la recomendación.</li>
+<li>Pasar los mismos coches a <b>eléctricos</b> reduce el CO₂ un 52 %, pero sigue muy lejos de lo que consigue el cambio de modo.</li>
+</ul>
+
+<h3 id="c-pareto">6.3 Frontera de Pareto horas–CO₂ (método ε-restricción)</h3>
+<div class="formula k">\[ \min\ \mathbf{h}^{\top}\mathbf{z}\quad \text{s.a.}\quad \mathbf{c}^{\top}\mathbf{z}\le \varepsilon,\ \ \text{resto de LP-M};\qquad \mu(\varepsilon) = -\frac{\partial\,\mathbf{h}^{\top}\mathbf{z}^*}{\partial\varepsilon}\ \ \text{(h por t CO}_2\text{ evitada)} \]</div>
+<div class="box">{{SVG_PARETO}}
+<p class="leg">Línea azul: frontera eficiente (ningún plan mejora a la vez en horas y en CO₂). Rojo: escenarios dominados. Verde: compromiso.</p></div>
+<div class="box"><table><thead><tr><th>t CO₂</th><th>Horas</th><th>\(\mu\) h/t</th><th>% coche comb.</th><th>% coche eléc.</th><th>% bus</th><th>% tranvía</th></tr></thead><tbody>{{TABLA_PARETO}}</tbody></table></div>
+<p>La frontera tiene dos tramos. En el primero, \(\mu\) ronda 0,4–0,6 h/t y el plan pasa la electricidad a renovable y el hormigón a LC3. En el último tramo, \(\mu\) se dispara hasta {{MU_MAX}} h/t porque hay que sustituir tranvía por autobús. Comparado con el escenario coche-céntrico, <b>cualquier punto de la frontera es mejor en las dos cosas</b>.</p>
+
+<h3 id="c-max">6.4 Maximizar la movilidad producida</h3>
+<div class="formula k">\[ \max\ t\quad\text{s.a.}\quad B\mathbf{z}\ge t\,\mathbf{e}_{\text{PKM}},\quad \mathbf{h}^{\top}\mathbf{z}\le H_{\text{ref}},\quad \mathbf{c}^{\top}\mathbf{z}\le C_{\text{ref}},\quad \text{cuotas modales y recursos} \]</div>
+<div class="two"><div class="box"><table><thead><tr><th>Modo</th><th>Coche-céntrico (mil pkm)</th><th>Máx. con los mismos recursos</th></tr></thead><tbody>{{TABLA_MAX}}</tbody></table></div>
+<div class="res" style="align-self:start">Con las mismas horas de trabajo y el mismo CO₂ que hoy se dedican al modelo coche-céntrico, la ciudad podría producir <b>×{{MULT_MOV}} veces más movilidad</b>. O, dicho al revés, la misma movilidad con menos de la mitad de recursos.</div></div>
+
+<h3 id="c-dual">6.5 Valoraciones objetivamente determinadas</h3>
+<p>Variables duales de la solución de mínimo trabajo:</p>
+<ul>
+<li>\(p_{\text{PKM}} = {{P_PKM}}\) h por cada 1.000 pkm: el coste social marginal de la movilidad. Incluye la obligación de dar un {{COCHE_MIN}} % en coche.</li>
+<li>Restricción de coche mínimo: {{DU_COCHE}} h por cada mil pkm. Es lo que cuesta cada mil pkm que <i>obligatoriamente</i> se hacen en coche en lugar de en transporte colectivo: el precio de la dispersión urbana.</li>
+<li>Límite de {{VIA_MAX}} km de tranvía: {{DU_VIA}} h por mil pkm de capacidad. Un km más de corredor ahorraría unas {{DU_VIA_KM}} h al año, poco, porque autobús y tranvía casi empatan en horas.</li>
+<li>CO₂ (§6.3): \(\mu \approx\) {{MU_TIP}} h/t en el tramo central de la frontera.</li>
+</ul>
+<div class="formula k"><div class="tt">Coste de cada modo a precios duales</div>
+\[ \pi_m = h_m + \sum_g p_g\,a_{g,m}\quad\text{(horas propias + insumos valorados)},\qquad \pi_m^{\mu} = \pi_m + \mu\cdot \text{CO}^{\text{ciclo}}_{2,m} \]</div>
+<div class="box"><table><thead><tr><th>Modo</th><th>Horas propias</th><th>Insumos a precios duales</th><th>\(\pi_m\)</th><th>\(\pi_m - p_{\text{PKM}}\)</th><th>t CO₂/mil pkm</th><th>\(\pi_m^{\mu}\) con CO₂ valorado</th></tr></thead><tbody>{{TABLA_DUAL_MODOS}}</tbody></table></div>
+<p>El coche cuesta unas 1,8 h <i>más</i> por cada mil pkm que el valor marginal de la movilidad. Solo se mantiene en el plan porque la restricción del {{COCHE_MIN}} % lo obliga. Autobús y tranvía cuestan menos que ese valor marginal: son las técnicas eficientes, en el sentido de Kantorovich.</p>
+
+<!-- ============================================================ -->
+<h2 id="plan">7. Plan de flota e infraestructura</h2>
+<h3 id="plan-flota">7.1 Parque, reposición anual y horas de ensamblaje (plan de compromiso)</h3>
+<div class="formula t"><div class="tt">Dimensionado</div>
+\[ N_m = \frac{q_m}{n_m\cdot \text{km/año}_m},\quad \text{reposición}_m = \frac{N_m}{\text{vida}_m},\quad \text{km vía} = \frac{q_{\text{tram}}}{\kappa},\quad \text{paradas} = 1{,}8\cdot\text{km},\quad \text{marquesinas} = \frac{q_{\text{bus}}}{{{KPKM_MAR}}\ \text{mil pkm}},\quad \text{cargadores} = 0{,}5\,N_{\text{bus}} \]
+\[ \text{Horas de ensamblaje} = \text{reposición}\times l_j,\qquad \text{Horas totales} = \text{reposición}\times v_j,\qquad \text{Operarios de ensamblaje} = \frac{\text{horas de ensamblaje}}{1.650\ \text{h/año}} \]</div>
+<div>
+<div class="box"><b>a) Parque y producción anual de reposición</b><table><thead><tr><th>Producto</th><th>Parque coche-céntrico</th><th>Parque plan óptimo</th><th>Vida (años)</th><th>Producción anual</th></tr></thead><tbody>{{TABLA_FLOTA}}</tbody></table></div>
+<div class="box"><b>b) Horas de trabajo (plan óptimo)</b><table><thead><tr><th>Producto</th><th>h ensamblaje / ud</th><th>h ensamblaje / año</th><th>Operarios ensamblaje</th><th>h totales / ud</th><th>h totales / año</th><th>h para construir el parque</th></tr></thead><tbody>{{TABLA_FLOTA2}}</tbody></table></div>
+</div>
+<p>Horas de ensamblaje final por año y escenario:</p>
+<div class="box"><table><thead><tr><th>Escenario</th><th>Coche comb.</th><th>Coche eléc.</th><th>Autobús</th><th>Tranvía</th><th>Vía (km)</th><th>Paradas</th><th>Marquesinas</th><th>Cargadores</th><th>Total</th></tr></thead><tbody>{{TABLA_ENS}}</tbody></table></div>
+
+<h3 id="plan-bloques">7.2 Horas totales por bloque de la cadena (miles de horas/año)</h3>
+<div class="box"><table><thead><tr><th>Escenario</th>{{CAB_GRUPOS}}<th>Total</th><th>Conducción de usuarios (no incluida)</th></tr></thead><tbody>{{TABLA_GRUPOS}}</tbody></table></div>
+<p>En el modelo coche-céntrico, la mayoría del trabajo social se va en mantener {{FLOTA_CICE_REF}} coches y en fabricar sus componentes. Con autobús y tranvía autónomos, el trabajo se concentra en operación y mantenimiento de pocos vehículos muy usados, más infraestructura duradera. Y las {{HCOND_REF}} M horas al año que la población pasa conduciendo quedan libres.</p>
+
+<!-- ============================================================ -->
+<h2 id="supuestos">8. Supuestos y límites</h2>
+<ul>
+<li><b>Coeficientes ilustrativos</b>, con órdenes de magnitud realistas: masa del coche 1.350 kg, autobús 13 t, tranvía 42 t; batería de 60 kWh en el coche y 420 kWh en el autobús; 45.000 h por km de vía doble con catenaria. No son datos de ningún fabricante ni de ninguna ciudad concreta. Están todos en <code>modelo_movilidad.py</code>.</li>
+<li><b>Ocupaciones medias fijas</b>: coche 1, autobús 22 y tranvía 66. Un modelo lineal no recoge que la ocupación mejora cuando hay más demanda por línea (economías de red) ni la congestión, así que se queda corto a favor del transporte colectivo.</li>
+<li><b>No se incluyen</b> viarios y aparcamientos para coches, que pesarían mucho en contra del coche, ni el tiempo de viaje de los usuarios como coste. Las horas de conducción se muestran aparte.</li>
+<li><b>Régimen permanente</b>: los flujos anuales reponen el parque. La transición (construir {{VIA_KM}} km de vía y miles de marquesinas) se valora aparte como «horas para construir el parque desde cero».</li>
+<li><b>Vehículos autónomos</b>: se supone supervisión remota con 1 persona por cada 10 vehículos en servicio. Con conductor, autobús y tranvía sumarían el tiempo de conducción que aparece en 2.3, y aun así seguirían siendo dominantes frente al coche.</li>
+<li>Los métodos de taller (juegos completos, balanceo, Johnson, camino crítico) del documento anterior <code>planificacion_turismo.html</code> se aplican igual a las líneas de autobús y tranvía, con la producción anual que da la tabla 7.1.</li>
+</ul>
+<p class="nota">Reproducible con <code>python modelo_movilidad.py</code> y <code>python build_movilidad.py</code>. Solver: HiGHS (<code>scipy.optimize.linprog</code>).</p>
+</main>
+</body>
+</html>

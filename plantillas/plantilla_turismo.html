@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Planificación y optimización de un turismo medio: Leontief, Kantorovich y método del taller</title>
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']], tags: 'ams' },
+                   chtml: { scale: 0.98 } };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<style>
+:root{
+  --bg:#fafaf9; --panel:#ffffff; --ink:#1c1917; --mut:#57534e; --line:#e7e5e4;
+  --acc:#4338ca; --acc2:#0e7490; --warn:#b45309; --red:#be123c; --ok:#15803d;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif}
+nav{position:fixed;top:0;left:0;bottom:0;width:250px;overflow:auto;padding:24px 18px;border-right:1px solid var(--line);background:#f5f5f4;font-size:14px}
+nav b{display:block;margin-bottom:10px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+nav a{display:block;color:var(--ink);text-decoration:none;padding:4px 8px;border-radius:6px}
+nav a:hover{background:#e7e5e4}
+nav a.sub{padding-left:22px;color:var(--mut);font-size:13px}
+main{margin-left:250px;max-width:1120px;padding:40px 48px 120px}
+@media (max-width:900px){nav{display:none}main{margin-left:0;padding:24px}}
+h1{font-size:34px;line-height:1.2;margin:0 0 10px}
+h2{font-size:26px;margin:64px 0 12px;padding-top:12px;border-top:2px solid var(--ink)}
+h3{font-size:19px;margin:36px 0 8px}
+p,li{max-width:80ch}
+.lead{font-size:18px;color:var(--mut);max-width:80ch}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:28px 0}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.kpi .v{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums}
+.kpi .l{font-size:13px;color:var(--mut)}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 20px;margin:16px 0;overflow-x:auto}
+.formula{background:#eef2ff;border:1px solid #c7d2fe;border-left:4px solid var(--acc);border-radius:8px;padding:10px 18px;margin:14px 0;overflow-x:auto}
+.formula.k{background:#ecfeff;border-color:#a5f3fc;border-left-color:var(--acc2)}
+.formula.t{background:#fff7ed;border-color:#fed7aa;border-left-color:var(--warn)}
+.formula .tt{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+.nota{font-size:14px;color:var(--mut);border-left:3px solid var(--line);padding-left:12px}
+.res{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px 16px;margin:14px 0}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--mut);font-weight:600}
+td.n{text-align:right;white-space:nowrap}
+td.w{width:28%}
+.bar{height:12px;background:#f5f5f4;border-radius:3px;overflow:hidden;margin-top:4px}
+.bar span{display:block;height:100%;border-radius:3px}
+.chip{display:inline-block;font-size:11px;padding:1px 8px;border-radius:999px;border:1px solid var(--c);color:var(--c);white-space:nowrap}
+table.mat{font-size:10.5px;width:auto}
+table.mat th,table.mat td{padding:3px 4px;text-align:center;border:1px solid #f0efee;min-width:34px}
+table.mat td.z{color:#d6d3d1}
+.ok{color:var(--ok);font-weight:600}.no{color:var(--red);font-weight:600}
+.niveles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0}
+.niv{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--c);border-radius:10px;padding:14px 16px;font-size:14.5px}
+.niv h4{margin:0 0 6px;font-size:16px}
+@media (max-width:900px){.niveles{grid-template-columns:1fr}}
+.flow{display:flex;gap:8px;align-items:stretch;flex-wrap:wrap;margin:18px 0}
+.flow .col{flex:1;min-width:150px;background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--c);border-radius:8px;padding:10px 12px;font-size:13px}
+.flow .col h5{margin:0 0 6px;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--c)}
+.flow .arr{align-self:center;font-size:22px;color:var(--mut)}
+.estrow,.grow{display:flex;align-items:center;gap:10px;margin:5px 0;font-size:13px}
+.estlab{width:34px;font-weight:700}
+.esttrack{flex:1;display:flex;height:26px;background:#f5f5f4;border-radius:4px;overflow:hidden;border:1px solid var(--line)}
+.seg{background:var(--acc);color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;border-right:2px solid #fff}
+.idle{background:repeating-linear-gradient(45deg,#f5f5f4,#f5f5f4 4px,#e7e5e4 4px,#e7e5e4 8px)}
+.estval{width:120px;text-align:right;font-family:var(--mono);font-size:12px}
+.glab{width:330px;flex-shrink:0}
+.gtrack{flex:1;position:relative;height:22px;background:#f5f5f4;border-radius:4px;border:1px solid var(--line)}
+.gb{position:absolute;top:2px;bottom:2px;border-radius:3px;color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.gb.m1{background:var(--acc2)}.gb.m2{background:var(--acc)}
+.gb.crit{background:var(--red)}.gb.nc{background:#78716c}
+.slack{position:absolute;top:8px;height:6px;background:repeating-linear-gradient(90deg,#a8a29e,#a8a29e 3px,transparent 3px,transparent 6px)}
+tr.critrow td{background:#fff1f2}
+code{font-family:var(--mono);font-size:13px;background:#f5f5f4;padding:1px 5px;border-radius:4px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:900px){.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav>
+  <b>Índice</b>
+  <a href="#resumen">Resumen del plan</a>
+  <a href="#enfoque">1. Enfoque: tres niveles</a>
+  <a href="#cadena">2. La cadena: del mineral al coche</a>
+  <a href="#leontief">3. Leontief</a>
+  <a class="sub" href="#l-modelo">3.1 Modelo y fórmulas</a>
+  <a class="sub" href="#l-A">3.2 Matriz técnica A</a>
+  <a class="sub" href="#l-x">3.3 Producción bruta</a>
+  <a class="sub" href="#l-neumann">3.4 Rondas de Neumann</a>
+  <a class="sub" href="#l-trabajo">3.5 Trabajo incorporado</a>
+  <a class="sub" href="#l-co2">3.6 CO₂ incorporado</a>
+  <a class="sub" href="#l-precios">3.7 Modelo dual de precios</a>
+  <a href="#kantorovich">4. Kantorovich</a>
+  <a class="sub" href="#k-modelo">4.1 Primal: elegir técnicas</a>
+  <a class="sub" href="#k-sol">4.2 Solución óptima</a>
+  <a class="sub" href="#k-dual">4.3 Valoraciones duales</a>
+  <a class="sub" href="#k-criterio">4.4 Criterio de optimalidad</a>
+  <a class="sub" href="#k-sens">4.5 Sensibilidad CO₂</a>
+  <a href="#taller">5. Método del taller</a>
+  <a class="sub" href="#t-juegos">5.1 Juegos completos (1939)</a>
+  <a class="sub" href="#t-balanceo">5.2 Balanceo de la línea</a>
+  <a class="sub" href="#t-johnson">5.3 Secuenciación (Johnson)</a>
+  <a class="sub" href="#t-cpm">5.4 Camino crítico</a>
+  <a href="#integracion">6. Integración de niveles</a>
+  <a href="#supuestos">7. Supuestos y límites</a>
+</nav>
+
+<main>
+<h1>Plan de producción de un turismo medio, del mineral al concesionario</h1>
+<p class="lead">Este documento planifica y optimiza la fabricación de <b>{{N}} turismos medios al año</b> (segmento C, unos 1.350 kg) con tres herramientas clásicas de la planificación económica: el <b>balance input-output de Leontief</b> para las cantidades, la <b>programación lineal de Kantorovich</b> para elegir técnicas y obtener valoraciones, y el <b>método del taller</b> para repartir el trabajo entre máquinas, puestos y fechas. Todas las cifras se calculan con <code>modelo.py</code>; los coeficientes son ilustrativos pero mantienen órdenes de magnitud realistas.</p>
+
+<section id="resumen">
+<div class="kpis">
+  <div class="kpi"><div class="v">{{N}}</div><div class="l">turismos/año (demanda final del plan)</div></div>
+  <div class="kpi"><div class="v">{{horas}} h</div><div class="l">trabajo total incorporado por coche (Leontief)</div></div>
+  <div class="kpi"><div class="v">{{co2}} → {{co2k}} t</div><div class="l">CO₂ por coche: técnica base → plan óptimo con techo</div></div>
+  <div class="kpi"><div class="v">{{lam}}</div><div class="l">motores completos/año que admite el taller de mecanizado (frente a {{lam_n}} con un reparto ingenuo)</div></div>
+  <div class="kpi"><div class="v">{{takt}} min</div><div class="l">takt de la línea ({{takt_s}} s por coche)</div></div>
+  <div class="kpi"><div class="v">{{T}} días</div><div class="l">ciclo más corto de la mina al coche terminado</div></div>
+</div>
+<div class="res"><b>Resultado del plan.</b> Para fabricar {{N}} coches hay que extraer unas {{fe}} kg de mineral de hierro, {{bau}} kg de bauxita, {{car}} kg de carbón y {{cru}} kg de crudo <i>por coche</i>, y generar {{elec}} MWh de electricidad por coche. El óptimo de Kantorovich, con un techo de {{techo}} t de CO₂, usa toda la chatarra disponible y {{z_ren}} MWh de electricidad renovable. Con eso las emisiones bajan un {{red_co2}} % y, además, el trabajo total <i>baja</i> un {{sobre}} % (hasta {{horask}} h por coche): reciclar chatarra ahorra extracción y transporte de mineral. El taller de motores, con el reparto óptimo de Kantorovich, trabaja al {{util_taller}} % de su capacidad. Con el reparto ingenuo <i>no</i> alcanzaría el plan.</div>
+</section>
+
+<!-- =================================================================== -->
+<h2 id="enfoque">1. Enfoque: tres niveles de planificación</h2>
+<p>La planificación se hace en tres niveles. Cada uno resuelve una pregunta y pasa su respuesta al siguiente:</p>
+<div class="niveles">
+  <div class="niv" style="--c:var(--acc)"><h4>Nivel macro · Leontief</h4><b>¿Cuánto hay que producir de cada cosa?</b><br>Balance material de toda la cadena. Con una técnica fija por sector, la inversa de Leontief da la producción bruta de cada sector, incluidos todos los insumos indirectos (el acero del acero, la electricidad de la electricidad…). También da el trabajo y el CO₂ incorporados.</div>
+  <div class="niv" style="--c:var(--acc2)"><h4>Nivel meso · Kantorovich</h4><b>¿Con qué técnica conviene producir?</b><br>Cuando un bien se puede hacer de varias formas y hay recursos escasos (chatarra, renovables, techo de CO₂), la programación lineal elige la combinación que minimiza el trabajo social. Su dual da las <i>valoraciones objetivamente determinadas</i>: lo que vale de verdad cada recurso escaso.</div>
+  <div class="niv" style="--c:var(--warn)"><h4>Nivel micro · Método del taller</h4><b>¿Quién hace qué, dónde y cuándo?</b><br>Reparto del trabajo entre máquinas (el problema de los juegos completos de Kantorovich, 1939, que nació en un taller), balanceo de la línea de montaje con el takt, secuenciación de lotes (Johnson) y calendario de la cadena (camino crítico).</div>
+</div>
+<p class="nota">Sobre «método del taller»: tomo la acepción histórica de Kantorovich. Su trabajo de 1939, <i>Métodos matemáticos de organización y planificación de la producción</i>, nació de un problema real del taller del Trust del Contrachapado de Leningrado: repartir piezas entre máquinas de distinta productividad para maximizar los juegos completos. Lo amplío con las técnicas estándar de planificación en planta (takt, balanceo, secuenciación, CPM) para completar el nivel operativo.</p>
+
+<!-- =================================================================== -->
+<h2 id="cadena">2. La cadena: del mineral al coche</h2>
+<p>El sistema tiene 22 sectores en cinco escalones. Cada sector produce un único bien medido en unidades físicas (toneladas, MWh o unidades). El modelo es un <b>Leontief en unidades físicas</b>, sin precios: así los coeficientes son directamente recetas técnicas.</p>
+<div class="flow">
+  <div class="col" style="--c:#a16207"><h5>Extracción</h5>Mineral de hierro · Bauxita · Concentrado de cobre · Crudo/gas · Arena de sílice · Carbón</div><div class="arr">→</div>
+  <div class="col" style="--c:#b45309"><h5>Energía</h5>Electricidad (térmica / renovable)</div><div class="arr">→</div>
+  <div class="col" style="--c:#0e7490"><h5>Materiales</h5>Acero · Aluminio · Cobre · Polímeros y pinturas · Caucho · Vidrio</div><div class="arr">→</div>
+  <div class="col" style="--c:#4338ca"><h5>Componentes</h5>Carrocería en blanco · Motor · Transmisión · Chasis · Ruedas y neumáticos · Eléctrico/electrónico · Interior · Cristales</div><div class="arr">→</div>
+  <div class="col" style="--c:#be123c"><h5>Producto final</h5>Pintura + montaje final + pruebas = <b>Turismo</b></div>
+</div>
+<div class="box"><table><thead><tr><th>Código</th><th>Sector / bien</th><th>Unidad</th><th>Escalón</th></tr></thead><tbody>{{LEYENDA}}</tbody></table></div>
+
+<!-- =================================================================== -->
+<h2 id="leontief">3. Nivel macro: el balance de Leontief</h2>
+
+<h3 id="l-modelo">3.1 Modelo y fórmulas</h3>
+<p>Sea \(x_i\) la producción bruta del bien \(i\), \(y_i\) la demanda final y \(a_{ij}\) el <b>coeficiente técnico</b>: unidades del bien \(i\) que consume el sector \(j\) por cada unidad que produce. El balance dice que todo lo que se produce va a consumo intermedio o a uso final:</p>
+<div class="formula"><div class="tt">Ecuación de balance</div>
+\[ x_i \;=\; \sum_{j=1}^{n} a_{ij}\,x_j \;+\; y_i \quad (i=1,\dots,n) \qquad\Longleftrightarrow\qquad \mathbf{x} = A\mathbf{x} + \mathbf{y} \]</div>
+<div class="formula"><div class="tt">Solución: inversa de Leontief</div>
+\[ \mathbf{x} = (I-A)^{-1}\,\mathbf{y} = L\,\mathbf{y}, \qquad L = (I-A)^{-1} = I + A + A^2 + A^3 + \cdots \]
+<p>Cada elemento \(\ell_{ij}\) de \(L\) dice cuántas unidades del bien \(i\) hacen falta, directa o indirectamente, para entregar una unidad del bien \(j\) a la demanda final. La columna del turismo, \(L_{\cdot,\text{TUR}}\), es la <b>lista completa de materiales «de la cuna a la puerta»</b> de un coche.</p></div>
+<div class="formula"><div class="tt">Condición de viabilidad (Hawkins–Simon)</div>
+\[ \rho(A) < 1 \quad\Longleftrightarrow\quad \text{todos los menores principales de } (I-A) \text{ son } > 0 \quad\Longrightarrow\quad L \ge 0 \]
+<p>En nuestro sistema \(\rho(A) = {{rho}}\), así que la economía es productiva: la serie de Neumann converge y toda demanda final no negativa se puede atender con producciones no negativas.</p></div>
+<p>La demanda final del plan es \(\mathbf{y} = (0,\dots,0,\;{{N}})^{\top}\): solo se entregan coches. Todo lo demás es consumo intermedio.</p>
+
+<h3 id="l-A">3.2 Matriz técnica \(A\)</h3>
+<p>Se lee por columnas: la columna <b>j</b> es la receta del sector j. Por ejemplo, la columna ACE dice que 1 t de acero integral necesita 1,6 t de mineral de hierro, 0,75 t de carbón (coque) y 0,45 MWh. La columna TUR dice que un coche lleva una unidad de cada componente, más pintura y polímeros (0,03 t), algo de acero de montaje y 0,8 MWh de planta, casi todo del taller de pintura. Los coeficientes ya incluyen las mermas (por ejemplo, 0,55 t de acero bruto por carrocería, de las que el coche conserva unas 0,40 t).</p>
+<div class="box">{{TABLA_A}}</div>
+
+<h3 id="l-x">3.3 Producción bruta y requerimientos por coche</h3>
+<p>Al resolver \(\mathbf{x}=L\mathbf{y}\) sale el plan de producción de cada sector. La columna «por coche» es \(\ell_{i,\text{TUR}}\). La de trabajo es \(v_i\) (ver 3.5) y la de CO₂ es \(\varepsilon_i\) (ver 3.6).</p>
+<div class="box"><table><thead><tr><th>Escalón</th><th>Bien</th><th>Por coche \(\ell_{i,\text{TUR}}\)</th><th>Ud.</th><th>Producción bruta \(x_i\) del plan</th><th>Trabajo incorporado \(v_i\) (h/ud)</th><th>CO₂ incorporado \(\varepsilon_i\) (t/ud)</th></tr></thead><tbody>{{TABLA_X}}</tbody></table></div>
+<p>Lectura física de un coche, del origen al final: {{acero_coche}} kg de acero bruto, {{alu}} kg de aluminio, {{cob}} kg de cobre, {{pol}} kg de polímeros y pinturas, {{cau}} kg de caucho y {{vid}} kg de vidrio. Detrás de ellos hay {{fe}} kg de mineral de hierro, {{bau}} kg de bauxita, {{cuc}} kg de concentrado de cobre, {{car}} kg de carbón y {{cru}} kg de crudo.</p>
+
+<h3 id="l-neumann">3.4 Rondas de Neumann: cómo se propaga la demanda hacia atrás</h3>
+<p>La serie \(L = I + A + A^2 + \dots\) tiene una lectura económica directa. Para entregar el coche (\(A^0\mathbf{y}\)) hacen falta sus componentes (\(A\mathbf{y}\)). Para los componentes hacen falta materiales (\(A^2\mathbf{y}\)). Para los materiales, minerales y energía (\(A^3\mathbf{y}\)), y así sucesivamente.</p>
+<div class="formula"><div class="tt">Ronda k</div>
+\[ \mathbf{x}^{(k)} = A^{k}\mathbf{y}, \qquad \mathbf{x} = \sum_{k=0}^{\infty}\mathbf{x}^{(k)}, \qquad \text{trabajo de la ronda } k = \mathbf{l}^{\top}A^{k}\mathbf{y} \]</div>
+<div class="box"><table><thead><tr><th>Ronda k</th><th>Trabajo de la ronda (por coche)</th><th>Acumulado</th><th>% del total</th><th>Acero exigido en la ronda</th><th>Electricidad exigida en la ronda</th></tr></thead><tbody>{{FILAS_NEU}}</tbody></table></div>
+<p class="nota">La convergencia es rápida porque \(\rho(A)\) es pequeño. Hacia la cuarta ronda (minería y energía para los materiales) ya está más del 99 % del trabajo. Por eso un planificador puede truncar la serie en cadenas largas con un error acotado por \(\rho(A)^{k+1}/(1-\rho(A))\).</p>
+
+<h3 id="l-trabajo">3.5 Trabajo incorporado: el coste social del coche en horas</h3>
+<p>Si \(l_j\) son las horas de trabajo <i>directo</i> por unidad del sector \(j\), el trabajo total (directo + indirecto) que incorpora cada bien es:</p>
+<div class="formula"><div class="tt">Valores-trabajo</div>
+\[ \mathbf{v}^{\top} = \mathbf{l}^{\top}(I-A)^{-1} \quad\Longleftrightarrow\quad v_j = l_j + \sum_i v_i\,a_{ij} \]
+\[ \text{Trabajo total del plan} = \mathbf{l}^{\top}\mathbf{x} = \mathbf{v}^{\top}\mathbf{y} = {{trab_tot}} \text{ h} \;\;\Rightarrow\;\; v_{\text{TUR}} = {{horas}}\ \text{h/coche} \]</div>
+<p>La segunda forma es recursiva: un bien vale su trabajo directo más el valor de lo que consume. Reparto de las {{horas}} h por sector de origen (\(l_i\,\ell_{i,\text{TUR}}\)):</p>
+<div class="box"><table><thead><tr><th>Sector</th><th>Horas por coche</th><th></th><th>Peso</th></tr></thead><tbody>{{FILAS_L}}</tbody></table></div>
+
+<h3 id="l-co2">3.6 CO₂ incorporado</h3>
+<p>Funciona igual, con el vector de emisiones directas \(\mathbf{d}\) (t CO₂ por unidad, incluida la combustión del carbón en la acería y en las centrales):</p>
+<div class="formula"><div class="tt">Intensidad total de emisiones</div>
+\[ \boldsymbol{\varepsilon}^{\top} = \mathbf{d}^{\top}(I-A)^{-1}, \qquad E = \mathbf{d}^{\top}\mathbf{x} = {{co2_tot}}\ \text{t CO}_2 \;\Rightarrow\; \varepsilon_{\text{TUR}} = {{co2}}\ \text{t/coche} \]</div>
+<div class="box"><table><thead><tr><th>Sector emisor</th><th>CO₂ por coche</th><th></th><th>Peso</th></tr></thead><tbody>{{FILAS_E}}</tbody></table></div>
+<p>El acero integral (alto horno) y la electricidad térmica suman la mayor parte. Aquí entra Kantorovich: <b>hay técnicas alternativas</b> para justo esos sectores.</p>
+
+<h3 id="l-precios">3.7 El modelo dual de precios</h3>
+<p>El modelo de cantidades tiene un gemelo de precios. Si cada sector cobra el coste de sus insumos más el trabajo directo pagado a un salario \(w\) (y, de forma opcional, un margen \(r\) sobre los insumos):</p>
+<div class="formula"><div class="tt">Sistema de precios de Leontief</div>
+\[ p_j = \sum_i p_i\,a_{ij} + w\,l_j \;\Longrightarrow\; \mathbf{p}^{\top} = w\,\mathbf{l}^{\top}(I-A)^{-1} = w\,\mathbf{v}^{\top} \qquad\quad \text{(con margen: } \mathbf{p}^{\top} = w\,\mathbf{l}^{\top}\big(I-(1+r)A\big)^{-1}\text{)} \]</div>
+<p>Con \(r=0\), los precios son proporcionales a los valores-trabajo de 3.5. A 25 €/h, por ejemplo, el coste social del coche sería \({{horas}} \times 25\) €. Esta es la referencia con la que se comparan las valoraciones de Kantorovich.</p>
+
+<!-- =================================================================== -->
+<h2 id="kantorovich">4. Nivel meso: optimización de Kantorovich</h2>
+<p>Leontief supone <b>una sola técnica por sector</b>. En la realidad el acero se puede hacer en alto horno o en horno eléctrico con chatarra, el aluminio puede ser primario o reciclado, la electricidad térmica o renovable, y la carrocería de acero o multimaterial. Kantorovich (1939, y luego <i>La mejor utilización de los recursos económicos</i>, 1959) planteó el problema como programación lineal sobre <b>actividades</b>.</p>
+
+<h3 id="k-modelo">4.1 Problema primal: elegir la combinación de técnicas</h3>
+<p>Cada actividad \(k\) funciona a una intensidad \(z_k \ge 0\). Su columna neta \(B_{\cdot k}\) vale +1 en el bien que produce y \(-a_{ik}\) en los que consume. Además gasta \(h_k\) horas de trabajo, emite \(c_k\) t de CO₂ y usa \(R_{rk}\) unidades de recursos escasos no producibles.</p>
+<div class="formula k"><div class="tt">Primal (plan óptimo de técnicas)</div>
+\[ \begin{aligned}
+\min_{\mathbf{z}\ge 0}\quad & \mathbf{h}^{\top}\mathbf{z} && \text{(horas de trabajo social del plan)}\\
+\text{s.a.}\quad & B\,\mathbf{z} \;\ge\; \mathbf{y} && \text{(balance de Leontief generalizado: producción neta ≥ demanda final)}\\
+& R\,\mathbf{z} \;\le\; \mathbf{r} && \text{(chatarra de acero ≤ 45.000 t; chatarra de Al ≤ 7.000 t; renovables ≤ {{renov_cap}} MWh)}\\
+& \mathbf{c}^{\top}\mathbf{z} \;\le\; \bar{C} = {{techo}}\ \text{t CO}_2 && \text{(techo de emisiones del plan: 62 \% de las emisiones de la técnica base)}
+\end{aligned} \]</div>
+<p>Si cada bien tuviera una sola actividad y no hubiera restricciones de recursos, \(B = I - A\) y el problema se reduce exactamente a Leontief. Kantorovich <b>generaliza</b> a Leontief.</p>
+<div class="box"><table><thead><tr><th>Bien</th><th>Técnica</th><th>Insumos por unidad</th><th>Horas \(h_k\)</th><th>CO₂ \(c_k\)</th><th>\(z_k\) sin techo CO₂</th><th>\(z_k\) óptimo con techo</th><th>Coste reducido \(\bar h_k\)</th><th>Estado</th></tr></thead><tbody>{{TABLA_TEC}}</tbody></table></div>
+
+<h3 id="k-sol">4.2 Solución óptima</h3>
+<div class="two">
+<div class="box"><b>Sin techo de CO₂</b><br>Trabajo: {{horas_libre}} h/coche. Emisiones: {{co2_libre}} t.<br>El EAF con chatarra y el aluminio secundario ya se usan aunque no haya techo, porque <i>ahorran trabajo</i>: no hay que extraer ni transportar mineral. La chatarra se agota. Las renovables no entran: cuestan 0,35 h/MWh, frente a las {{vELE}} h/MWh que incorpora la térmica (\(v_{\text{ELE}}\) en 3.3). Sin precio para el CO₂, la térmica es la que ahorra trabajo.</div>
+<div class="box"><b>Con techo de {{techo}} t CO₂</b><br>Trabajo: {{horask}} h/coche, un {{sobre}} % <i>menos</i> que el Leontief de técnica única ({{horas}} h). Ganar en emisiones no cuesta trabajo frente a la técnica base: el ahorro de la chatarra compensa el coste de las renovables.<br>Acero: {{z_bof}} t BF-BOF + {{z_eaf}} t EAF. Aluminio: {{z_alp}} t primario + {{z_alsec}} t secundario. Electricidad: {{z_term}} MWh térmica + {{z_ren}} MWh renovable.<br>Emisiones: {{co2k}} t/coche (−{{red_co2}} % frente a la técnica base).</div>
+</div>
+
+
+<h3 id="k-dual">4.3 Problema dual: las valoraciones objetivamente determinadas</h3>
+<p>A cada restricción del primal le corresponde una variable dual. Kantorovich las llamó <b>valoraciones objetivamente determinadas</b> (<i>объективно обусловленные оценки</i>). Son los precios que hacen óptimo el plan, medidos aquí en horas de trabajo.</p>
+<div class="formula k"><div class="tt">Dual</div>
+\[ \begin{aligned}
+\max_{\mathbf{p},\mathbf{u},\mu\ \ge 0}\quad & \mathbf{p}^{\top}\mathbf{y} \;-\; \mathbf{u}^{\top}\mathbf{r} \;-\; \mu\,\bar C\\
+\text{s.a.}\quad & \mathbf{p}^{\top}B_{\cdot k} \;-\; \mathbf{u}^{\top}R_{\cdot k} \;-\; \mu\,c_k \;\le\; h_k \qquad \forall k
+\end{aligned} \]
+<p>\(p_i\): valoración del bien \(i\). \(u_r\): renta de escasez del recurso \(r\). \(\mu\): valoración de una tonelada de CO₂ dentro del techo (un precio sombra del carbono). Por dualidad fuerte, \(\mathbf{h}^{\top}\mathbf{z}^* = \mathbf{p}^{*\top}\mathbf{y} - \mathbf{u}^{*\top}\mathbf{r} - \mu^*\bar C\).</p></div>
+<div class="box"><table><thead><tr><th>Recurso escaso</th><th>Disponible</th><th>Usado</th><th>% uso</th><th>Valoración dual</th><th>Lectura</th></tr></thead><tbody>{{FILAS_REC}}</tbody></table></div>
+<p><b>Cómo se leen.</b> Una tonelada más de chatarra de acero ahorraría {{du_fe}} h de trabajo social; una de aluminio, {{du_al}} h. Relajar el techo en 1 t de CO₂ ahorraría {{du_co2}} h. Es decir, <b>reducir una tonelada de CO₂ cuesta {{du_co2}} horas de trabajo</b> en el margen. La capacidad renovable no está saturada, así que su valoración es cero (holgura complementaria): la renovable es la técnica marginal, no el cuello de botella.</p>
+<div class="formula k"><div class="tt">Holgura complementaria</div>
+\[ z_k^*\,\Big(h_k - \mathbf{p}^{*\top}B_{\cdot k} + \mathbf{u}^{*\top}R_{\cdot k} + \mu^* c_k\Big) = 0, \qquad u_r^*\,\big(r_r - R_{r\cdot}\mathbf{z}^*\big) = 0, \qquad \mu^*\big(\bar C - \mathbf{c}^{\top}\mathbf{z}^*\big)=0 \]</div>
+<p>Valoraciones de los bienes \(p_i\) frente a los valores-trabajo de Leontief \(v_i\). Las diferencias son las rentas de escasez (chatarra) y el coste del CO₂ que se trasladan a lo largo de la cadena:</p>
+<div class="box"><table><thead><tr><th>Bien</th><th>Ud.</th><th>\(v_i\) Leontief (h)</th><th>\(p_i\) Kantorovich (h)</th><th>Diferencia</th></tr></thead><tbody>{{FILAS_PR}}</tbody></table></div>
+<p>El coche vale {{pTUR}} h con las valoraciones de Kantorovich, frente a {{horas}} h en Leontief. La diferencia no es trabajo «gastado» de más: es el valor de los recursos escasos y del límite ambiental que el coche agota.</p>
+
+<h3 id="k-criterio">4.4 Criterio de optimalidad: costes reducidos</h3>
+<div class="formula k"><div class="tt">Criterio de Kantorovich</div>
+\[ \bar h_k \;=\; h_k \;-\; \underbrace{\mathbf{p}^{\top}B_{\cdot k}}_{\text{valor neto producido}} \;+\; \underbrace{\mathbf{u}^{\top}R_{\cdot k} + \mu\,c_k}_{\text{valor de recursos y CO}_2\text{ consumidos}} \;\ge\; 0,\qquad z_k^*>0 \Rightarrow \bar h_k = 0 \]</div>
+<p>Una técnica se usa solo si «cubre sus costes» a las valoraciones duales. La <b>carrocería multimaterial</b> tiene \(\bar h = {{cr_multi}}\) h > 0: aligera el coche, pero en esta cadena gasta más trabajo y más aluminio (que vale 13 h/t) de lo que ahorra en acero. Por eso se descarta. Solo entraría si el plan valorara el consumo de combustible durante el uso del coche, que queda fuera de este modelo de fabricación.</p>
+
+<h3 id="k-sens">4.5 Sensibilidad al techo de CO₂</h3>
+<p>Resolvemos el problema paramétricamente en \(\bar C\). El coste en horas es una función convexa y lineal a trozos del techo. Su pendiente en cada tramo es \(-\mu\), el precio sombra:</p>
+<div class="formula k">\[ \frac{\partial\,(\mathbf{h}^{\top}\mathbf{z}^*)}{\partial \bar C} = -\mu^* \]</div>
+<div class="box"><table><thead><tr><th>Techo (% emisiones base)</th><th>t CO₂</th><th>Horas del plan</th><th>h/coche</th><th>\(\mu^*\) (h/t CO₂)</th><th>Coste del plan</th></tr></thead><tbody>{{FILAS_SENS}}</tbody></table></div>
+<p class="nota">Por debajo de un 58 % de las emisiones base el problema se vuelve infactible: ya no quedan chatarra ni técnicas limpias con capacidad. Para bajar más el techo habría que añadir actividades nuevas al modelo (acero DRI con hidrógeno, más capacidad renovable, más reciclaje). Esa es la conversación de inversión que abre el dual.</p>
+
+<!-- =================================================================== -->
+<h2 id="taller">5. Nivel micro: el método del taller</h2>
+<p>Leontief y Kantorovich fijan cuántos motores, carrocerías, etc. hay que producir: {{N}} de cada uno. Ahora toca organizar las fábricas que los producen.</p>
+
+<h3 id="t-juegos">5.1 El problema de los juegos completos (Kantorovich, 1939)</h3>
+<p>Es el problema original de Kantorovich, aplicado aquí al <b>taller de mecanizado del motor</b>. Cada motor necesita un juego completo de piezas: 1 bloque, 1 culata, 1 cigüeñal, 2 árboles de levas y 4 bielas. Hay tres grupos de máquinas con productividades distintas para cada pieza. Una máquina flexible lo hace todo despacio; una especializada hace pocas cosas muy rápido. Sirve de poco fabricar muchas bielas si faltan cigüeñales: lo que cuenta es el número de <b>juegos completos</b>.</p>
+<div class="formula t"><div class="tt">Formulación</div>
+\[ \begin{aligned}
+\max\quad & \lambda && \text{(número de motores completos)}\\
+\text{s.a.}\quad & \sum_{i} a_{ik}\,t_{ik} \;\ge\; n_k\,\lambda && \forall k \ \text{(piezas } k\text{: } n_k \text{ por motor)}\\
+& \sum_{k} t_{ik} \;\le\; T_i && \forall i \ \text{(horas disponibles del grupo } i\text{)}\\
+& t_{ik} \ge 0,\quad t_{ik}=0 \text{ si } a_{ik}=0
+\end{aligned} \]
+<p>\(a_{ik}\): piezas/hora del grupo \(i\) en la pieza \(k\). \(t_{ik}\): horas que el grupo \(i\) dedica a la pieza \(k\). \(T_i\): número de máquinas × 3.500 h/año (2 turnos, 230 días, descontado el mantenimiento).</p></div>
+<div class="box"><b>Productividades \(a_{ik}\) (piezas/hora por máquina)</b><table><thead><tr><th>Grupo de máquinas</th>{{CAB_P}}</tr></thead><tbody>{{FILAS_PROD}}</tbody></table></div>
+<div class="box"><b>Reparto óptimo \(t_{ik}^*\) (horas-máquina/año) y multiplicadores resolutorios</b>
+<table><thead><tr><th>Grupo</th>{{CAB_P}}<th>Horas usadas / disponibles</th><th>Multiplicador de máquina \(\mu_i\)<br><small>(motores por hora extra)</small></th></tr></thead>
+<tbody>{{FILAS_T}}
+<tr><td><b>Piezas producidas (óptimo)</b></td>{{FILA_PIEZAS}}<td></td><td></td></tr>
+<tr><td><b>Piezas con reparto ingenuo</b><br><small>(cada grupo reparte su tiempo a partes iguales)</small></td>{{FILA_PIEZAS_N}}<td></td><td></td></tr>
+<tr><td><b>Multiplicador de pieza \(\pi_k\)</b><br><small>(fracción de motor que aporta una pieza extra)</small></td>{{FILA_MULT}}<td></td><td></td></tr>
+</tbody></table></div>
+<div class="res"><b>Resultado:</b> \(\lambda^* = {{lam}}\) motores/año. El reparto ingenuo da {{lam_n}}, <b>por debajo del plan de {{N}}</b>. Con las mismas máquinas, la optimización consigue un {{ganancia}} % más. El taller cumple el plan usando el {{util_taller}} % de su capacidad y le queda margen para averías y repuestos.</div>
+<p><b>Multiplicadores resolutorios.</b> Así llamó Kantorovich a las variables duales. Dan la regla de reparto: el grupo \(i\) solo hace la pieza \(k\) si esa pieza es la que más valor de juego aporta por hora en esa máquina.</p>
+<div class="formula t">\[ t_{ik}^* > 0 \;\Longrightarrow\; a_{ik}\,\pi_k = \max_{k'}\ a_{ik'}\,\pi_{k'} = \mu_i, \qquad \sum_k n_k\,\pi_k = 1 \]</div>
+<p>La línea transfer tiene el multiplicador más alto: una hora extra de transfer da más motores que una hora extra de cualquier otra máquina. Es el primer candidato a ampliar. Además, las máquinas flexibles (CNC 5 ejes) no hacen cigüeñales ni levas: dejan esas piezas a las rectificadoras, que son relativamente mejores en ellas (ventaja comparativa), aunque los CNC <i>podrían</i> hacerlas.</p>
+
+<h3 id="t-balanceo">5.2 Balanceo de la línea de montaje final</h3>
+<p>El montaje final debe sacar un coche cada <b>takt</b>:</p>
+<div class="formula t"><div class="tt">Takt y número mínimo de puestos</div>
+\[ \text{takt} = \frac{\text{tiempo disponible}}{\text{demanda}} = \frac{2\ \text{turnos}\times 7{,}5\ \text{h}\times 230\ \text{días}\times 60}{{{N}}} = \frac{{{min_anio}}\ \text{min}}{{{N}}} = {{takt}}\ \text{min} \]
+\[ N_{\min} = \left\lceil \frac{\sum_j t_j}{\text{takt}} \right\rceil, \qquad \text{eficiencia} = \frac{\sum_j t_j}{N\cdot \text{takt}}, \qquad \text{retraso del balance} = 1-\text{eficiencia} \]</div>
+<p>Ejemplo resuelto: el tramo <b>«Trim 1»</b> de la línea (14 tareas, \(\sum t_j = {{sumt}}\) min, \(N_{\min} = {{nmin}}\)). Se usa el método de los <b>pesos posicionales</b> (Helgeson–Birnie): cada tarea pesa su tiempo más el de todas sus sucesoras; se asignan por orden de peso, respetando las precedencias y sin pasar del takt.</p>
+<div class="formula t">\[ PW_j = t_j + \sum_{s\,\in\,\text{Suc}^*(j)} t_s \]</div>
+<div class="two">
+<div class="box"><table><thead><tr><th>Tarea</th><th>Descripción</th><th>t (min)</th><th>Predecesoras</th><th>PW</th></tr></thead><tbody>{{FILAS_TAREAS}}</tbody></table></div>
+<div class="box"><b>Asignación a estaciones</b> (gris rayado = tiempo ocioso)<br><br>{{EST_HTML}}<br>
+<b>{{nest}} estaciones</b> (mínimo teórico {{nmin}}), eficiencia <b>{{ef}} %</b>. La heurística no llega al mínimo teórico de 7 por las precedencias y el tamaño de las tareas, que no encajan a la perfección en el takt.</div>
+</div>
+<p><b>Planta completa.</b> El montaje final y la pintura suman {{montaje_min}} min de trabajo directo por coche. Con un takt de {{takt}} min hacen falta al menos ⌈{{montaje_min}} / {{takt}}⌉ = <b>{{puestos}} puestos de operario por turno</b>, y unos 600 con una eficiencia de balance del 87 % como la del tramo resuelto.</p>
+
+<h3 id="t-johnson">5.3 Secuenciación en el taller de carrocería: regla de Johnson</h3>
+<p>Seis lotes de paneles pasan por dos máquinas en serie: <b>estampación (E)</b> y luego <b>soldadura (S)</b>. Para dos máquinas en flujo, la regla de Johnson (1954) da la secuencia que minimiza el tiempo total \(C_{\max}\):</p>
+<div class="formula t"><div class="tt">Regla de Johnson</div>
+\[ \text{Grupo 1} = \{\,j: p_{1j}\le p_{2j}\,\} \text{ por } p_{1j} \uparrow, \qquad \text{Grupo 2} = \{\,j: p_{1j} > p_{2j}\,\} \text{ por } p_{2j}\downarrow, \qquad \sigma^* = (\text{G1},\text{G2}) \]
+\[ C_{1,\sigma(k)} = C_{1,\sigma(k-1)} + p_{1,\sigma(k)}, \qquad C_{2,\sigma(k)} = \max\!\big(C_{1,\sigma(k)},\,C_{2,\sigma(k-1)}\big) + p_{2,\sigma(k)} \]</div>
+<div class="two">
+<div class="box"><table><thead><tr><th>Lote</th><th>p₁ estampación (h)</th><th>p₂ soldadura (h)</th><th>Clasificación</th></tr></thead><tbody>{{FILAS_LOTES}}</tbody></table></div>
+<div class="box"><b>Secuencia óptima:</b> {{seq}}<br><br>{{GANTT_J}}<br><b>C<sub>max</sub> = {{cm}} h</b>, frente a {{cm0}} h en orden de llegada. La idea es empezar con lotes de estampación corta para que la soldadura arranque pronto, y terminar con lotes de soldadura corta para no dejarla sola al final.</div>
+</div>
+
+<h3 id="t-cpm">5.4 Camino crítico de la cadena: de la mina al coche</h3>
+<p>Por último, el calendario. Cada eslabón tiene un plazo y unas precedencias. El método del camino crítico (CPM) da la fecha más temprana de entrega y dice qué eslabones no admiten ningún retraso:</p>
+<div class="formula t"><div class="tt">Pasada hacia delante y hacia atrás</div>
+\[ ES_j = \max_{i\in \text{Pred}(j)} EF_i,\quad EF_j = ES_j + d_j;\qquad LF_j = \min_{s\in \text{Suc}(j)} LS_s,\quad LS_j = LF_j - d_j;\qquad H_j = LS_j - ES_j \]
+<p>Una actividad es <b>crítica</b> si su holgura \(H_j=0\).</p></div>
+<div class="box">{{GANTT_C}}<p style="margin:8px 0 0"><span style="color:var(--red)">■</span> crítica · <span style="color:#78716c">■</span> con holgura (rayado = margen)</p></div>
+<div class="box"><table><thead><tr><th></th><th>Actividad</th><th>d (días)</th><th>Pred.</th><th>ES</th><th>EF</th><th>LS</th><th>LF</th><th>Holgura</th></tr></thead><tbody>{{FILAS_CPM}}</tbody></table></div>
+<div class="res"><b>Ruta crítica:</b> {{RUTA_CRIT}}, con {{T}} días. Va de la mina de hierro al transporte marítimo, la acería, la fundición de bloques, el mecanizado del motor y el montaje final. El stock de seguridad conviene ponerlo <b>en el acero y en los motores</b>. Los cables y la electrónica tienen 19 días de holgura y el interior 30, así que pueden ir <i>justo a tiempo</i>.</div>
+
+<!-- =================================================================== -->
+<h2 id="integracion">6. Integración: cómo se coordinan los tres niveles</h2>
+<p>Los tres niveles forman un único procedimiento de planificación. Se pasan información en las dos direcciones:</p>
+<div class="flow">
+  <div class="col" style="--c:var(--acc)"><h5>1 · Leontief</h5>\(\mathbf{x}=L\mathbf{y}\): cantidades brutas por sector, valores-trabajo \(\mathbf{v}\), emisiones \(\boldsymbol{\varepsilon}\).</div><div class="arr">⇄</div>
+  <div class="col" style="--c:var(--acc2)"><h5>2 · Kantorovich</h5>Elige las técnicas \(\mathbf{z}^*\) y calcula las valoraciones \(\mathbf{p}^*, \mathbf{u}^*, \mu^*\). Los coeficientes resultantes forman una nueva \(A^*\) (la técnica óptima).</div><div class="arr">⇄</div>
+  <div class="col" style="--c:var(--warn)"><h5>3 · Taller</h5>Con la cantidad objetivo (\(x_{\text{MOT}}={{N}}\)) y las valoraciones como pesos, reparte máquinas, balancea líneas, secuencia y fecha. Devuelve capacidades reales \(\lambda^*\) y cuellos de botella \(\mu_i\).</div>
+</div>
+<div class="formula"><div class="tt">Esquema iterativo de coordinación (tipo Kornai–Lipták / Dantzig–Wolfe)</div>
+\[ \begin{aligned}
+&\textbf{1.}\ \ \mathbf{x}^{(0)} = (I-A)^{-1}\mathbf{y} && \text{(primera aproximación de cantidades)}\\
+&\textbf{2.}\ \ (\mathbf{z}^{(s)},\mathbf{p}^{(s)}) = \arg\min\{\mathbf{h}^{\top}\mathbf{z} : B\mathbf{z}\ge\mathbf{y},\ R\mathbf{z}\le \mathbf{r}^{(s)},\ \mathbf{c}^{\top}\mathbf{z}\le\bar C\} && \text{(centro: técnicas y valoraciones)}\\
+&\textbf{3.}\ \ \text{cada taller } f \text{ resuelve } \max \lambda_f \text{ con su cuota } x_f^{(s)} \text{ y devuelve } \lambda_f,\ \mu_f && \text{(talleres: capacidad efectiva)}\\
+&\textbf{4.}\ \ \text{si } \lambda_f < x_f^{(s)}: \text{ añadir la restricción } z_f \le \lambda_f \text{ (o invertir donde } \mu_f \text{ es máximo) y volver a 2} && \\
+&\textbf{5.}\ \ \text{parar cuando } \lambda_f \ge x_f \ \forall f \text{ y } \|\mathbf{p}^{(s)}-\mathbf{p}^{(s-1)}\| < \epsilon &&
+\end{aligned} \]</div>
+<p>En este plan converge en la primera vuelta, porque el taller de motores tiene capacidad sobrada (\(\lambda^* = {{lam}} \ge {{N}}\)). Si se hubiera usado el reparto ingenuo ({{lam_n}} < {{N}}), el paso 4 habría marcado un déficit. El centro habría tenido que comprar capacidad de transfer, la máquina de mayor \(\mu_i\), o importar motores.</p>
+
+<h3>Plan consolidado</h3>
+<div class="box"><table><thead><tr><th>Decisión</th><th>Nivel</th><th>Valor del plan</th></tr></thead><tbody>
+<tr><td>Coches a entregar</td><td>Demanda final</td><td class="n">{{N}} ud/año</td></tr>
+<tr><td>Acero (BF-BOF / EAF)</td><td>Kantorovich</td><td class="n">{{z_bof}} t / {{z_eaf}} t</td></tr>
+<tr><td>Aluminio (primario / secundario)</td><td>Kantorovich</td><td class="n">{{z_alp}} t / {{z_alsec}} t</td></tr>
+<tr><td>Electricidad (térmica / renovable)</td><td>Kantorovich</td><td class="n">{{z_term}} / {{z_ren}} MWh</td></tr>
+<tr><td>Carrocería</td><td>Kantorovich</td><td class="n">100 % acero (multimaterial descartada)</td></tr>
+<tr><td>Trabajo social total</td><td>Kantorovich</td><td class="n">{{horask}} h/coche</td></tr>
+<tr><td>CO₂ total</td><td>Kantorovich</td><td class="n">{{co2k}} t/coche</td></tr>
+<tr><td>Precio sombra del CO₂</td><td>Dual</td><td class="n">{{du_co2}} h/t</td></tr>
+<tr><td>Motores completos posibles</td><td>Taller (juegos completos)</td><td class="n">{{lam}} (uso {{util_taller}} %)</td></tr>
+<tr><td>Takt de la línea / puestos mín. en montaje</td><td>Taller (balanceo)</td><td class="n">{{takt}} min / {{puestos}}</td></tr>
+<tr><td>Secuencia de lotes en carrocería</td><td>Taller (Johnson)</td><td class="n">{{seq}} ({{cm}} h)</td></tr>
+<tr><td>Ciclo mina → coche</td><td>Taller (CPM)</td><td class="n">{{T}} días</td></tr>
+</tbody></table></div>
+
+<!-- =================================================================== -->
+<h2 id="supuestos">7. Supuestos y límites</h2>
+<ul>
+<li><b>Coeficientes ilustrativos.</b> Mantienen órdenes de magnitud realistas (unos 900 kg de acero bruto y 165 kg de aluminio por coche, 15 MWh por tonelada de aluminio primario, y así), pero no son datos de ningún fabricante. Para un plan real se sustituyen en <code>modelo.py</code> por los coeficientes de ingeniería de la planta o por tablas input-output físicas (por ejemplo, Exiobase).</li>
+<li><b>Rendimientos constantes y sin producción conjunta</b> (supuestos de Leontief). La chatarra generada en la propia cadena no se recicla dentro del modelo; entra como recurso exógeno.</li>
+<li><b>Sin capital fijo ni transporte como sectores.</b> El trabajo incorporado no incluye la amortización de las máquinas. Se puede añadir con un modelo dinámico de Leontief \(\mathbf{x}_t = A\mathbf{x}_t + K(\mathbf{x}_{t+1}-\mathbf{x}_t) + \mathbf{y}_t\).</li>
+<li><b>Objetivo de Kantorovich = horas de trabajo.</b> Se puede cambiar por coste monetario, energía o un objetivo multicriterio sin tocar la estructura.</li>
+<li><b>Taller:</b> el problema de juegos completos es continuo (horas divisibles). El balanceo usa una heurística (pesos posicionales), no el óptimo exacto (SALBP-1 es NP-difícil). Johnson es exacto solo para dos máquinas.</li>
+</ul>
+<p class="nota">Reproducible con <code>python modelo.py</code> (resultados) y <code>python build_html.py</code> (este documento). Solver: HiGHS vía <code>scipy.optimize.linprog</code>.</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,575 @@
+{
+ "fuente": "INE. Encuesta Industrial Anual de Productos",
+ "url_fuente": "https://www.ine.es/dyngs/INEbase/operacion.htm?c=Estadistica_C&cid=1254736149053&menu=resultados&idp=1254735576715",
+ "pagina": "https://streamcat-rep.github.io/Produccion_Industrial_Nacional/index.html",
+ "generado": "2026-11-12T17:50:02+00:00",
+ "unidad_valor": "miles de euros",
+ "productos": {
+  "1610114004": {
+   "nombre": "Madera aserrada o desbastada longitudinalmente, cortada o desenrollada, incluso cepillada, lijada o unida por los extremos de grosor superior a 6 mm de coníferas: de pino (Pinus spp.)",
+   "jerarquia": [
+    "Madera aserrada o desbastada longitudinalmente, cortada o desenrollada, incluso cepillada, lijada o unida por los extremos de grosor superior a 6 mm",
+    "De coníferas",
+    "De pino (Pinus spp.)"
+   ],
+   "unidad": "metros cúbicos",
+   "q2025": 3039090,
+   "v2025": 352367,
+   "q2024": 1994103
+  },
+  "1621120008": {
+   "nombre": "Tableros de partículas y similares de madera: tableros de partículas",
+   "jerarquia": [
+    "Tableros de partículas y similares",
+    "De madera",
+    "Tableros de partículas"
+   ],
+   "unidad": "metros cúbicos",
+   "q2025": 1817254,
+   "v2025": 455408,
+   "q2024": 1317716
+  },
+  "1621141908": {
+   "nombre": "Tableros de partículas y similares de madera: otros tipos (incluidos los tableros llamados \"waferboard\")",
+   "jerarquia": [
+    "Tableros de partículas y similares",
+    "De madera",
+    "Los demás (incluidos los tableros llamados \"waferboard\")"
+   ],
+   "unidad": "metros cúbicos",
+   "q2025": 936068,
+   "v2025": 336747,
+   "q2024": 923265
+  },
+  "1623111003": {
+   "nombre": "Piezas de carpintería para construcción: ventanas, balcones y sus marcos y contraventanas",
+   "jerarquia": [
+    "Piezas de carpintería para construcción",
+    "Ventanas, balcones y sus marcos y contraventanas"
+   ],
+   "unidad": "unidades",
+   "q2025": 223046,
+   "v2025": 123914,
+   "q2024": 228221
+  },
+  "1623115004": {
+   "nombre": "Piezas de carpintería para construcción: puertas y sus marcos, bastidores y umbrales, incluye muebles empotrados",
+   "jerarquia": [
+    "Piezas de carpintería para construcción",
+    "Puertas y sus marcos, bastidores y umbrales, incluye muebles empotrados"
+   ],
+   "unidad": "unidades",
+   "q2025": 18113890,
+   "v2025": 1071472,
+   "q2024": 12801545
+  },
+  "2030115008": {
+   "nombre": "Pinturas y barnices a base de polímeros sintéticos o naturales; modificados, dispersos o disueltos en medio acuoso: a base de polímeros acrílicos o vinílicos",
+   "jerarquia": [
+    "Pinturas y barnices a base de polímeros sintéticos o naturales; modificados, dispersos o disueltos",
+    "En medio acuoso",
+    "A base de polímeros acrílicos o vinílicos"
+   ],
+   "unidad": "toneladas",
+   "q2025": 369453,
+   "v2025": 610743,
+   "q2024": 390020
+  },
+  "2030117004": {
+   "nombre": "Pinturas y barnices a base de polímeros sintéticos o naturales; modificados, dispersos o disueltos en medio acuoso: otros tipos",
+   "jerarquia": [
+    "Pinturas y barnices a base de polímeros sintéticos o naturales; modificados, dispersos o disueltos",
+    "En medio acuoso",
+    "Los demás"
+   ],
+   "unidad": "toneladas",
+   "q2025": 166077,
+   "v2025": 255888,
+   "q2024": 141607
+  },
+  "2221215302": {
+   "nombre": "Tubos, caños y mangueras y sus accesorios tubos rígidos: de polímeros de etileno",
+   "jerarquia": [
+    "Tubos, caños y mangueras y sus accesorios",
+    "Tubos rígidos",
+    "De polímeros de etileno"
+   ],
+   "unidad": "toneladas",
+   "q2025": 213981,
+   "v2025": 419338,
+   "q2024": 202970
+  },
+  "2221215500": {
+   "nombre": "Tubos, caños y mangueras y sus accesorios tubos rígidos: de polímeros de propileno",
+   "jerarquia": [
+    "Tubos, caños y mangueras y sus accesorios",
+    "Tubos rígidos",
+    "De polímeros de propileno"
+   ],
+   "unidad": "toneladas",
+   "q2025": 19236,
+   "v2025": 52788,
+   "q2024": 16341
+  },
+  "2221215709": {
+   "nombre": "Tubos, caños y mangueras y sus accesorios tubos rígidos: de polímeros de cloruro de vinilo",
+   "jerarquia": [
+    "Tubos, caños y mangueras y sus accesorios",
+    "Tubos rígidos",
+    "De polímeros de cloruro de vinilo"
+   ],
+   "unidad": "toneladas",
+   "q2025": 195600,
+   "v2025": 388498,
+   "q2024": 194696
+  },
+  "2223145002": {
+   "nombre": "Artículos de materiales plásticos para la construcción otros artículos para la construcción: puertas, ventanas y sus marcos bastidores y umbrales (con bisagras o correderas)",
+   "jerarquia": [
+    "Artículos de materiales plásticos para la construcción",
+    "Otros artículos para la construcción",
+    "Puertas, ventanas y sus marcos bastidores y umbrales (con bisagras o correderas)"
+   ],
+   "unidad": "unidades",
+   "q2025": 2048065,
+   "v2025": 718062,
+   "q2024": 2103049
+  },
+  "2312133007": {
+   "nombre": "Vidrio plano: vidrieras aislantes de paredes múltiples",
+   "jerarquia": [
+    "Vidrio plano",
+    "Vidrieras aislantes de paredes múltiples"
+   ],
+   "unidad": "metros cuadrados",
+   "q2025": 12265365,
+   "v2025": 454309,
+   "q2024": 8996665
+  },
+  "2314129802": {
+   "nombre": "Fibras de vidrio y manufacturas (incluida lana de vidrio): lana de vidrio y sus manufacturas",
+   "jerarquia": [
+    "Fibras de vidrio y manufacturas (incluida lana de vidrio)",
+    "Lana de vidrio y sus manufacturas"
+   ],
+   "unidad": "kilogramos",
+   "q2025": 300144,
+   "v2025": 6449,
+   "q2024": 437914
+  },
+  "2331100006": {
+   "nombre": "Azulejos y baldosas de cerámica",
+   "jerarquia": [
+    "Placas y baldosas de cerámica para pavimentación o revestimiento; cubos, dados y artículos similares de cerámica, para mosaicos, incluso con soporte; piezas de acabado de cerámica"
+   ],
+   "unidad": "miles de metros cuadrados",
+   "q2025": 585198,
+   "v2025": 4027747,
+   "q2024": 484999
+  },
+  "2332111001": {
+   "nombre": "Ladrillos, tejas y productos de tierras cocidas para la construcción: ladrillos",
+   "jerarquia": [
+    "Ladrillos, tejas y productos de tierras cocidas para la construcción",
+    "Ladrillos"
+   ],
+   "unidad": "miles de metros cúbicos",
+   "q2025": 5071,
+   "v2025": 299047,
+   "q2024": 4902
+  },
+  "2342103007": {
+   "nombre": "De uso sanitario fregaderos, bañeras, lavabos, bidés, inodoros, cisternas, y demás aparatos fijos: de porcelana",
+   "jerarquia": [
+    "De uso sanitario",
+    "Fregaderos, bañeras, lavabos, bidés, inodoros, cisternas, y demás aparatos fijos",
+    "De porcelana"
+   ],
+   "unidad": "miles de unidades",
+   "q2025": 398,
+   "v2025": 25816,
+   "q2024": 431
+  },
+  "2342105002": {
+   "nombre": "De uso sanitario fregaderos, bañeras, lavabos, bidés, inodoros, cisternas, y demás aparatos fijos: otros tipos",
+   "jerarquia": [
+    "De uso sanitario",
+    "Fregaderos, bañeras, lavabos, bidés, inodoros, cisternas, y demás aparatos fijos",
+    "Los demás"
+   ],
+   "unidad": "miles de unidades",
+   "q2025": 100,
+   "v2025": 10659,
+   "q2024": 9
+  },
+  "2351121019": {
+   "nombre": "Cementos hidráulicos portland: cemento blanco o coloreado artificialmente",
+   "jerarquia": [
+    "Cementos hidráulicos",
+    "Portland",
+    "Cemento blanco o coloreado artificialmente"
+   ],
+   "unidad": "toneladas",
+   "q2025": 766090,
+   "v2025": 97368,
+   "q2024": 760708
+  },
+  "2351121028": {
+   "nombre": "Cemento portland (otros tipos)",
+   "jerarquia": [
+    "Cementos hidráulicos",
+    "Portland",
+    "Los demás"
+   ],
+   "unidad": "toneladas",
+   "q2025": 16651693,
+   "v2025": 1920521,
+   "q2024": 17018579
+  },
+  "2351129003": {
+   "nombre": "Cementos hidráulicos: los demás cementos hidráulicos",
+   "jerarquia": [
+    "Cementos hidráulicos",
+    "Los demás cementos hidráulicos"
+   ],
+   "unidad": "toneladas",
+   "q2025": 302560,
+   "v2025": 52006,
+   "q2024": 287686
+  },
+  "2352200007": {
+   "nombre": "Yesos calcinados; escayola, 'cemento inglés', con alumbres, para odontología, para aprestos, etc",
+   "jerarquia": [
+    "Yesos calcinados; escayola, 'cemento inglés', con alumbres, para odontología, para aprestos, etc."
+   ],
+   "unidad": "toneladas",
+   "q2025": 956949,
+   "v2025": 100304,
+   "q2024": 1068892
+  },
+  "2361120001": {
+   "nombre": "Prefabricados de hormigón: vigas, bovedillas, traviesas, placas…",
+   "jerarquia": [
+    "Artículos de cemento, hormigón o piedra artificial (terrazo, etc.)",
+    "Elementos prefabricados para construcción o ingeniería: vigas, bovedillas, traviesas F.F.C.C., placas de fachada, paneles interiores, elementos de muelles, esclusas, etc."
+   ],
+   "unidad": "toneladas",
+   "q2025": 9688227,
+   "v2025": 2244966,
+   "q2024": 8195917
+  },
+  "2362105000": {
+   "nombre": "Artículos de yeso o prefabricados a base de yeso ( placas, paneles y similares sin adornos): reforzados exclusivamente con papel o cartón",
+   "jerarquia": [
+    "Artículos de yeso o prefabricados a base de yeso ( placas, paneles y similares sin adornos)",
+    "Reforzados exclusivamente con papel o cartón"
+   ],
+   "unidad": "miles de metros cuadrados",
+   "q2025": 197026,
+   "v2025": 469020,
+   "q2024": 156845
+  },
+  "2362109002": {
+   "nombre": "Artículos de yeso o prefabricados a base de yeso ( placas, paneles y similares sin adornos): otros tipos",
+   "jerarquia": [
+    "Artículos de yeso o prefabricados a base de yeso ( placas, paneles y similares sin adornos)",
+    "Los demás"
+   ],
+   "unidad": "miles de metros cuadrados",
+   "q2025": 22037,
+   "v2025": 70618,
+   "q2024": 21025
+  },
+  "2363100009": {
+   "nombre": "Hormigón fresco (preparado)",
+   "jerarquia": [
+    "Hormigones y morteros no refractarios",
+    "Hormigón dispuesto para moldeo o colada (amasado con agua)"
+   ],
+   "unidad": "toneladas",
+   "q2025": 60302313,
+   "v2025": 2896084,
+   "q2024": 56508001
+  },
+  "2399191002": {
+   "nombre": "Lana de escoria, lana de roca y lanas minerales similares (incluso mezcladas entre sí), en masas, hojas o rollos (excepto lana de vidrio)",
+   "jerarquia": [
+    "Lana de escoria, lana de roca y lanas minerales similares (incluso mezcladas entre sí), en masas, hojas o rollos (excepto lana de vidrio)"
+   ],
+   "unidad": "kilogramos",
+   "q2025": 145057999,
+   "v2025": 174925,
+   "q2024": 130055576
+  },
+  "2410513007": {
+   "nombre": "Chapas y bandas revestidas o recubiertas de acero no aleado y anchura ≥ 600 mm: chapas y flejes recubiertos de metal por inmersión en caliente",
+   "jerarquia": [
+    "Chapas y bandas revestidas o recubiertas",
+    "De acero no aleado y anchura >= 600 mm",
+    "Chapas y flejes recubiertos de metal por inmersión en caliente"
+   ],
+   "unidad": "toneladas",
+   "q2025": 1131230,
+   "v2025": 1120370,
+   "q2024": 1268401
+  },
+  "2410613000": {
+   "nombre": "Barras y varillas de acero laminado alambrón de acero no aleado: del tipo utilizado para armaduras de hormigón con nervaduras perfiladas en frío",
+   "jerarquia": [
+    "Barras y varillas de acero laminado",
+    "Alambrón de acero no aleado",
+    "Del tipo utilizado para armaduras de hormigón con nervaduras perfiladas en frío"
+   ],
+   "unidad": "toneladas",
+   "q2025": 120178,
+   "v2025": 71771,
+   "q2024": null
+  },
+  "2410621003": {
+   "nombre": "Barras y varillas de acero laminado barras de acero no aleado laminadas en caliente: redondos para hormigón",
+   "jerarquia": [
+    "Barras y varillas de acero laminado",
+    "Barras de acero no aleado laminadas en caliente",
+    "Redondos para hormigón"
+   ],
+   "unidad": "toneladas",
+   "q2025": 1608071,
+   "v2025": 977970,
+   "q2024": 1609713
+  },
+  "2410711000": {
+   "nombre": "Perfiles de acero laminados en caliente de acero no aleado: en U, de altura ≥ 80 mm",
+   "jerarquia": [
+    "Perfiles de acero laminados en caliente",
+    "De acero no aleado",
+    "En U, de altura >= 80 mm"
+   ],
+   "unidad": "toneladas",
+   "q2025": 320277,
+   "v2025": 219393,
+   "q2024": 310911
+  },
+  "2410712008": {
+   "nombre": "Perfiles de acero laminados en caliente de acero no aleado: en I, de altura ≥ 80 mm",
+   "jerarquia": [
+    "Perfiles de acero laminados en caliente",
+    "De acero no aleado",
+    "En I, de altura >= 80 mm"
+   ],
+   "unidad": "toneladas",
+   "q2025": 1355425,
+   "v2025": 944816,
+   "q2024": 1267023
+  },
+  "2410713006": {
+   "nombre": "Perfiles de acero laminados en caliente de acero no aleado: en H, de altura ≥ 80 mm",
+   "jerarquia": [
+    "Perfiles de acero laminados en caliente",
+    "De acero no aleado",
+    "En H, de altura >= 80 mm"
+   ],
+   "unidad": "toneladas",
+   "q2025": 985697,
+   "v2025": 702762,
+   "q2024": 1055004
+  },
+  "2410714004": {
+   "nombre": "Perfiles de acero laminados en caliente de acero no aleado: los demás laminados, perfilados o extrudidos en caliente",
+   "jerarquia": [
+    "Perfiles de acero laminados en caliente",
+    "De acero no aleado",
+    "Los demás laminados, perfilados o extrudidos en caliente"
+   ],
+   "unidad": "toneladas",
+   "q2025": 580212,
+   "v2025": 398428,
+   "q2024": 612599
+  },
+  "2442223005": {
+   "nombre": "Aluminio barras y perfiles de aluminio: sin alear",
+   "jerarquia": [
+    "Aluminio",
+    "Barras y perfiles de aluminio",
+    "Sin alear"
+   ],
+   "unidad": "toneladas",
+   "q2025": 21785,
+   "v2025": 94275,
+   "q2024": 21842
+  },
+  "2442225000": {
+   "nombre": "Barras y perfiles de aleación de aluminio",
+   "jerarquia": [
+    "Aluminio",
+    "Barras y perfiles de aluminio",
+    "Aleado"
+   ],
+   "unidad": "toneladas",
+   "q2025": 465494,
+   "v2025": 1956601,
+   "q2024": 465311
+  },
+  "2444133005": {
+   "nombre": "Cobre refinado en bruto, sin alear",
+   "jerarquia": [
+    "Cobre",
+    "Cobre refinado en bruto, sin alear"
+   ],
+   "unidad": "toneladas",
+   "q2025": 267785,
+   "v2025": 2403421,
+   "q2024": null
+  },
+  "2512105003": {
+   "nombre": "Puertas y ventanas de aluminio",
+   "jerarquia": [
+    "Puertas, ventanas y sus marcos, bastidores y umbrales",
+    "De aluminio"
+   ],
+   "unidad": "unidades",
+   "q2025": 8979024,
+   "v2025": 2286654,
+   "q2024": 8208945
+  },
+  "2712317008": {
+   "nombre": "Fabricación de aparatos de distribución y control eléctrico cuadros, paneles, armarios, consolas y demás soportes equipados con aparatos de distribución y control eléctrico para un voltaje ≤ 1000 V: los demás soportes de control y distribución de electricidad, tensión ≤ 1000 V",
+   "jerarquia": [
+    "Fabricación de aparatos de distribución y control eléctrico",
+    "Cuadros, paneles, armarios, consolas y demás soportes equipados con aparatos de distribución y control eléctrico",
+    "Para un voltaje <= 1000 V.",
+    "Los demás soportes de control y distribución de electricidad, tensión <= 1000 V."
+   ],
+   "unidad": "unidades",
+   "q2025": 2463727,
+   "v2025": 666826,
+   "q2024": 2143210
+  },
+  "2732138001": {
+   "nombre": "Cables eléctricos de baja tensión (hasta 1.000 V)",
+   "jerarquia": [
+    "Hilos y cables eléctricos aislados",
+    "Los demás conductores eléctricos sin piezas de conexión, para una tensión <= 1000 V."
+   ],
+   "unidad": "kilogramos",
+   "q2025": 255267479,
+   "v2025": 2419959,
+   "q2024": 255511763
+  },
+  "2751111105": {
+   "nombre": "Fabricación de aparatos electrodomésticos frigoríficos y congeladores de tipo doméstico: combinaciones de refrigerador y congelador, con puertas o cajones exteriores separados, o de combinaciones de estos elementos",
+   "jerarquia": [
+    "Fabricación de aparatos electrodomésticos",
+    "Frigoríficos y congeladores de tipo doméstico",
+    "Combinaciones de refrigerador y congelador, con puertas o cajones exteriores separados, o de combinaciones de estos elementos"
+   ],
+   "unidad": "unidades",
+   "q2025": 87999,
+   "v2025": 29528,
+   "q2024": null
+  },
+  "2751113302": {
+   "nombre": "Fabricación de aparatos electrodomésticos frigoríficos y congeladores de tipo doméstico: refrigeradores domésticos (excepto de empotrar)",
+   "jerarquia": [
+    "Fabricación de aparatos electrodomésticos",
+    "Frigoríficos y congeladores de tipo doméstico",
+    "Refrigeradores domésticos (excepto de empotrar)"
+   ],
+   "unidad": "unidades",
+   "q2025": 16647,
+   "v2025": 5828,
+   "q2024": null
+  },
+  "2751120009": {
+   "nombre": "Fabricación de aparatos electrodomésticos: lavavajillas domésticos",
+   "jerarquia": [
+    "Fabricación de aparatos electrodomésticos",
+    "Lavavajillas domésticos"
+   ],
+   "unidad": "unidades",
+   "q2025": 47234,
+   "v2025": 10535,
+   "q2024": null
+  },
+  "2751158106": {
+   "nombre": "Fabricación de aparatos electrodomésticos electromecánicos con motor eléctrico incorporado: campanas aspirantes en las que el mayor lado horizontal sea inferior o igual a 120 cm",
+   "jerarquia": [
+    "Fabricación de aparatos electrodomésticos",
+    "Electromecánicos con motor eléctrico incorporado",
+    "Campanas aspirantes en las que el mayor lado horizontal sea inferior o igual a 120 cm."
+   ],
+   "unidad": "unidades",
+   "q2025": 474826,
+   "v2025": 41284,
+   "q2024": 535921
+  },
+  "2751283002": {
+   "nombre": "Fabricación de aparatos electrodomésticos cocinas, hornos, placas y otros aparatos eléctricos para cocinar (incluye mixtos de gas y electricidad): placas (incluidas las mesas de cocción)",
+   "jerarquia": [
+    "Fabricación de aparatos electrodomésticos",
+    "Cocinas, hornos, placas y otros aparatos eléctricos para cocinar (incluye mixtos de gas y electricidad)",
+    "Placas (incluidas las mesas de cocción)"
+   ],
+   "unidad": "unidades",
+   "q2025": 2037815,
+   "v2025": 393049,
+   "q2024": 1779331
+  },
+  "2751287003": {
+   "nombre": "Fabricación de aparatos electrodomésticos cocinas, hornos, placas y otros aparatos eléctricos para cocinar (incluye mixtos de gas y electricidad): hornos para empotrar",
+   "jerarquia": [
+    "Fabricación de aparatos electrodomésticos",
+    "Cocinas, hornos, placas y otros aparatos eléctricos para cocinar (incluye mixtos de gas y electricidad)",
+    "Hornos para empotrar"
+   ],
+   "unidad": "unidades",
+   "q2025": 598576,
+   "v2025": 124128,
+   "q2024": null
+  },
+  "2822163006": {
+   "nombre": "Fabricación de maquinaria de elevación, carga o descarga y manipulación: ascensores y montacargas, eléctricos",
+   "jerarquia": [
+    "Fabricación de maquinaria de elevación, carga o descarga y manipulación",
+    "Ascensores y montacargas, eléctricos"
+   ],
+   "unidad": "unidades",
+   "q2025": 44820,
+   "v2025": 631563,
+   "q2024": 38343
+  },
+  "2822165001": {
+   "nombre": "Fabricación de maquinaria de elevación, carga o descarga y manipulación: los demás ascensores y montacargas",
+   "jerarquia": [
+    "Fabricación de maquinaria de elevación, carga o descarga y manipulación",
+    "Los demás ascensores y montacargas"
+   ],
+   "unidad": "unidades",
+   "q2025": 26340,
+   "v2025": 750048,
+   "q2024": 26116
+  },
+  "2825138001": {
+   "nombre": "Maquinaria de ventilación y refrigeración no doméstica equipos de producción de frío y bombas de calor: bombas de calor (excepto máquinas y aparatos de acondicionamiento de aire)",
+   "jerarquia": [
+    "Maquinaria de ventilación y refrigeración no doméstica",
+    "Equipos de producción de frío y bombas de calor",
+    "Bombas de calor (excepto máquinas y aparatos de acondicionamiento de aire)"
+   ],
+   "unidad": "unidades",
+   "q2025": null,
+   "v2025": 240326,
+   "q2024": 133405
+  },
+  "3102100004": {
+   "nombre": "Otros muebles: de cocina",
+   "jerarquia": [
+    "Otros muebles",
+    "De cocina"
+   ],
+   "unidad": "unidades",
+   "q2025": 11955220,
+   "v2025": 1123283,
+   "q2024": 7249454
+  }
+ }
+}
